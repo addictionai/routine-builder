@@ -6,7 +6,7 @@ import { events as routineEvents } from '../../data';
 import { events as transportEvents } from '../../dataTransport';
 import { startDate, endDate } from './../../helpers/dateHelpers';
 
-const start = Date.now();
+const start = '2021-08-20';
  
 export default {
   title: 'Routines/Builder',

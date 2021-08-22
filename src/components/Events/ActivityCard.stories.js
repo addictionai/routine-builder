@@ -35,4 +35,5 @@ Primary.args = {
     eventType: "Yoga",
     eventName: "Morning Yoga", 
     timeStart: "2021-08-20T08:30:00",
+    showAvatars: true,
 }

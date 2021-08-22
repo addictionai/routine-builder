@@ -91,12 +91,13 @@ const EventCard = ({
     eventType,
     eventName, 
     timeStart,
+    showAvatars = true,
     avatarSize = "small",
 }) => {
 
     const classes = useStyles();
 
-    const hasInvitedMembers = true;
+    const hasInvitedMembers = showAvatars;
     const member = memberData.find(m => m._id === memberId);
 
     const avatarProps = {
@@ -137,6 +138,7 @@ EventCard.propTypes = {
     eventType: PropTypes.string,
     eventName: PropTypes.string, 
     timeStart: PropTypes.string,
+    showAvatars: PropTypes.bool,
     avatarSize: PropTypes.string,
 }
 

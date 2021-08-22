@@ -8,10 +8,18 @@ export default {
   argTypes: {
       status: {
           options: ['completed', 'assigned', 'denied', 'missed'],
-          control: 'select',
+          control: 'radio',
       },
       timeStart: {
           control: 'date',
+      },
+      memberId: {
+        options: ['1','2','3'],
+        control: 'radio',
+      },
+      staffId: {
+          options: ['1','2'],
+          control: 'radio',
       }
   },
 }

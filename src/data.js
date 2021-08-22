@@ -8,21 +8,21 @@ export const memberData = [
         firstName: 'Sarah',
         lastName: 'Patterson',
         photo: 'https://images.generated.photos/Inn80-M6d9fftSJoxz566QvS9ppXtofF1lQe7aJZvDU/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/OTA0MzI3LmpwZw.jpg',
-        location: 'Sana Lake Housing',
+        location: 'Sana Housing',
     },
     {
         _id: '2',
         firstName: 'Parker',
         lastName: 'Williams',
         photo: 'https://images.generated.photos/5l8YXV-c-CCEquZ3DCaU0JaO-mVJZAhq8YZzFROH9TQ/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/NjE2NzQyLmpwZw.jpg',
-        location: 'Sana Lake Housing',
+        location: 'Sana IOP',
     },
     {
         _id: '3',
         firstName: 'Sammy',
         lastName: 'Davis',
         photo: 'https://images.generated.photos/iAoKYM0ch2fpvHJl3-yNnijrGka2uLgHjw_2fS9KgmQ/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/MTMyMDk5LmpwZw.jpg',
-        location: 'Sana Lake Housing',
+        location: 'Sana Housing',
     },
 
 ]
@@ -51,7 +51,7 @@ export const events = [
       hostId: '1',
       category: 'call',
       eventType: 'Call',
-      eventName: 'MyFYR Session',
+      eventName: '1-on-1 Session',
       timeStart: '2021-08-16T08:30:00',
     },
     {
