@@ -6,9 +6,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles({
-    avatar: { borderRadius: '50%' },
-    small: { height: 25, width: 25 },
-    medium: { height: 50, width: 50 },
+    avatar: { 
+        borderRadius: '50%',
+        border: '2px solid rgba(255,255,255,0.6)',
+    },
+    small: { height: 30, width: 30 },
+    medium: { height: 40, width: 40 },
     large: { height: 75, width: 75 },
 });
 

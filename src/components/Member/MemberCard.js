@@ -12,13 +12,19 @@ const useStyles = makeStyles({
         alignItems: 'center',
         margin: '5px 0',
         fontFamily: 'Helvetica, sans-serif',
+        color: '#1F3040',
     },
     memberDetails: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
     },
+    name: {
+        fontSize: '0.95rem',
+        fontWeight: 400,
+    },
     memberLocation: {
+        color: '#8C9AA7',
         fontSize: '0.8rem',
     },
     avatar: { marginRight: 10 },
@@ -43,7 +49,7 @@ const MemberCard = ({firstName, lastName, photo, location, size = 'medium'}) => 
             <MemberAvatar {...avatarProps} />
         </div> 
         <div className={classes.memberDetails}>
-            <div>{displayName}</div>
+            <div className={classes.name}>{displayName}</div>
             {!!location ? <div className={classes.memberLocation}>{location}</div> : null}
         </div>
     </div>

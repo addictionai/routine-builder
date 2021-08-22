@@ -9,17 +9,25 @@ import { startDate, endDate } from './helpers/dateHelpers';
 import Routines from './components/Routines/Routines';
 
 // UI
-import { Button, IconButton } from '@material-ui/core';
-import RefreshIcon from '@material-ui/icons/Refresh';
+import { 
+  BACKGROUND_COLOR, 
+  FONT_COLOR_MAIN, 
+  FONT_COLOR_SECONDARY, 
+  COLOR_LINK, 
+} from './styles/dark';
 import { makeStyles } from '@material-ui/core/styles';
+import { Button, IconButton } from '@material-ui/core';
+import EventIcon from '@material-ui/icons/Event';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles({
   root: {
     position: 'absolute',
     top: 0, bottom: 0, 
     left: 0, right: 0,
-    padding: 25,
-    backgroundImage: 'linear-gradient(135deg, #245C98 30%, #3269A5 70%)',
+    padding: 15,
+    background: BACKGROUND_COLOR,
   },
   container: {
     display: 'grid',
@@ -31,17 +39,31 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    padding: '0 10px',
     fontWeight: 600,
     fontSize: '1.2rem',
-    color: '#fff',
-    padding: '0 10px',
+    color: FONT_COLOR_MAIN,
+    "& Button": {
+      color: FONT_COLOR_SECONDARY,
+    },
+  },
+  headerMain: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  dateRange: {  
+    marginLeft: 50,
   },
   configSetup: {
     "& Button": {
-      color: '#fff',
-      borderColor: 'lightblue',
-      fontWeight: 800,
       marginLeft: 10,
+      borderColor: 'transparent',
+      color: COLOR_LINK,
+      fontWeight: 800,
+      fontSize: '0.9rem',
+      fontFamily: 'Helvetica, sans-serif',
+      textTransform: 'none',
     },
   },
   body: {
@@ -52,8 +74,8 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'flex-end',
     margin: 10,
-    color: 'lightblue'
-  }
+    color: FONT_COLOR_SECONDARY,
+  },
 });
 
 const App = () => {
@@ -67,13 +89,8 @@ const App = () => {
     console.log('[Routines] Refetching data...')
   }
 
-  const handleSetupTransport = () => {
-    setType(type => 'transport')
-  }
-
-  const handleSetupRoutines = () => {
-    setType(type => 'routine')
-  }
+  const handleSetupTransport = () => setType(prevType => 'transport');
+  const handleSetupRoutines = () => setType(prevType => 'routine');
 
   const config = {
     'routine': {
@@ -102,11 +119,20 @@ const App = () => {
     <div className={classes.root}>
       <div className={classes.container}>
         <div className={classes.header}>
-          <div>{config?.[type].title}: {startDate(start).format('MMM DD')} - {endDate(start).format('MMM DD, YYYY')}</div>
+          <div className={classes.headerMain}>
+            <div>
+              <IconButton onClick={null} aria-label="home" children={<EventIcon />} />
+              {config?.[type].title}
+            </div>
+            <div className={classes.dateRange}>
+              {startDate(start).format('MMM DD')} - {endDate(start).format('MMM DD, YYYY')}
+              <IconButton onClick={handleRefresh} aria-label="refresh" children={<ExpandMoreIcon />} />
+            </div>
+          </div>
           <div className={classes.configSetup}>
-            <IconButton onClick={handleRefresh} aria-label="delete" children={<RefreshIcon />} />
-            <Button variant="outlined" onClick={handleSetupRoutines}>Routines</Button>
-            <Button variant="outlined" selected onClick={handleSetupTransport}>Transport</Button>
+            <IconButton onClick={handleRefresh} aria-label="refresh" children={<RefreshIcon />} />
+            <Button variant="outlined" aria-label="routines-view" onClick={handleSetupRoutines}>Routines</Button>
+            <Button variant="outlined" aria-label="transport-view" onClick={handleSetupTransport}>Transport</Button>
           </div>
         </div>
         <div className={classes.body}>

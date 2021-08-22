@@ -13,7 +13,7 @@ const useStyles = makeStyles({
         fontFamily: 'Helvetica, sans-serif',
     },
     destinationText: {
-        fontSize: '0.8rem',
+        fontSize: '0.9rem',
     },
     mapPin: {
         width: 15,

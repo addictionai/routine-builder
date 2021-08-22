@@ -24,21 +24,29 @@ export const memberData = [
         photo: 'https://images.generated.photos/iAoKYM0ch2fpvHJl3-yNnijrGka2uLgHjw_2fS9KgmQ/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/MTMyMDk5LmpwZw.jpg',
         location: 'Sana Housing',
     },
-
-]
+];
 
 export const staffData = [
     {
         _id: '1',
+        status: 'active',
         firstName: 'James',
         lastName: 'Orwell',
         photo: 'https://images.generated.photos/rw5qAl3iwycYSaxoAwsLrp1df492NpzplXhHvfg2xyY/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/MjA3NTA1LmpwZw.jpg',
     },
     {
         _id: '2',
+        status: 'active',
         firstName: 'Laura',
         lastName: 'Carlton',
         photo: 'https://images.generated.photos/eaIbdNQBZF-DNoLuaMGJumpRHXZZSpcSX5S1BpkH2m8/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/ODA3MTI4LmpwZw.jpg',
+    },
+    {
+      _id: '3',
+      status: 'disabled',
+      firstName: 'Jimmy',
+      lastName: 'Joe',
+      photo: 'https://images.generated.photos/iAoKYM0ch2fpvHJl3-yNnijrGka2uLgHjw_2fS9KgmQ/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/MTMyMDk5LmpwZw.jpg',
     }
 ];
 
@@ -62,7 +70,7 @@ export const events = [
       category: 'recovery',
       eventType: '12 Step',
       eventName: 'AA Meeting',
-      timeStart: '2021-08-16T20:30:00',
+      timeStart: '2021-08-16T16:30:00',
     },
     {
       _id: nanoid(10),
@@ -126,7 +134,7 @@ export const events = [
     },
     {
       _id: nanoid(10),
-      status: 'assigned',
+      status: 'scheduled',
       memberId: '1',
       driverId: '2',
       category: 'personal',
@@ -134,4 +142,4 @@ export const events = [
       eventName: 'Chuch Group',
       timeStart: '2021-08-21T13:30:00',
     },
-  ]
+  ];
