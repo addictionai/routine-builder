@@ -24,16 +24,19 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles({
   root: {
     position: 'absolute',
-    top: 0, bottom: 0, 
-    left: 0, right: 0,
+    top: 0, 
+    left: 0,
+    minWidth: '100%',
+    minHeight: '100%',
+    height: 'auto',
+    width: 'auto',
     padding: 15,
-    background: BACKGROUND_COLOR,
+    backgroundImage: BACKGROUND_COLOR,
   },
   container: {
     display: 'grid',
     gridTemplateColumns: '1fr',
     gridTemplateRows: '75px 1fr 50px',
-    height: '100%',
   },
   header: {
     display: 'flex',

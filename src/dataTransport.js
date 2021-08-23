@@ -58,7 +58,7 @@ export const events = [
       staffId: '1',
       destinationType: 'Work',
       destination: 'Starbucks',
-      timeStart: '2021-08-16T08:30:00',
+      timeStart: '2021-08-23T08:30:00',
     },
     {
       _id: nanoid(10),
@@ -67,7 +67,7 @@ export const events = [
       staffId: '2',
       destinationType: 'Work',
       destination: '1010 Wilshire',
-      timeStart: '2021-08-16T14:30:00',
+      timeStart: '2021-08-23T14:30:00',
     },
     {
       _id: nanoid(10),
@@ -76,7 +76,7 @@ export const events = [
       staffId: '1',
       destinationType: 'Shop',
       destination: 'Apple Store',
-      timeStart: '2021-08-16T14:00:00',
+      timeStart: '2021-08-23T14:00:00',
     },    
     {
       _id: nanoid(10),
@@ -85,7 +85,7 @@ export const events = [
       staffId: '2',
       destinationType: 'Shop',
       destination: 'Main St Deli',
-      timeStart: '2021-08-16T09:30:00',
+      timeStart: '2021-08-23T09:30:00',
     },
     {
       _id: nanoid(10),
@@ -94,7 +94,7 @@ export const events = [
       staffId: '2',
       destinationType: 'Gym',
       destination: 'Equinox',
-      timeStart: '2021-08-18T18:45:00',
+      timeStart: '2021-08-25T18:45:00',
     },
     {
       _id: nanoid(10),
@@ -103,7 +103,7 @@ export const events = [
       staffId: '1',
       destinationType: 'AA',
       destination: 'The Retreat',
-      timeStart: '2021-08-17T13:30:00',
+      timeStart: '2021-08-24T13:30:00',
     },
     {
       _id: nanoid(10),
@@ -112,7 +112,7 @@ export const events = [
       staffId: '2',
       destinationType: 'Work',
       destination: '212 Main St',
-      timeStart: '2021-08-18T07:00:00',
+      timeStart: '2021-08-25T07:00:00',
     },
     {
       _id: nanoid(10),
@@ -121,7 +121,7 @@ export const events = [
       staffId: '2',
       destinationType: 'AA',
       destination: 'The Retreat',
-      timeStart: '2021-08-21T07:00:00',
+      timeStart: '2021-08-28T07:00:00',
     },
     {
       _id: nanoid(10),
@@ -130,6 +130,6 @@ export const events = [
       staffId: '2',
       destinationType: 'AA',
       destination: 'Trinity Church',
-      timeStart: '2021-08-20T17:00:00',
+      timeStart: '2021-08-27T17:00:00',
     },
   ];

@@ -94,18 +94,3 @@ Filters.propTypes = {
 }
 
 export default Filters
-
-// Temporary: Use data set
-const lauraData = {
-    _id: '2',
-    firstName: 'Laura',
-    lastName: 'Carlton',
-    photo: 'https://images.generated.photos/eaIbdNQBZF-DNoLuaMGJumpRHXZZSpcSX5S1BpkH2m8/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/ODA3MTI4LmpwZw.jpg',
-}
-
-const jamesData = {
-    _id: '1',
-    firstName: 'James',
-    lastName: 'Orwell',
-    photo: 'https://images.generated.photos/rw5qAl3iwycYSaxoAwsLrp1df492NpzplXhHvfg2xyY/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/MjA3NTA1LmpwZw.jpg',
-}

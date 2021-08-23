@@ -60,7 +60,7 @@ export const events = [
       category: 'call',
       eventType: 'Call',
       eventName: '1-on-1 Session',
-      timeStart: '2021-08-16T08:30:00',
+      timeStart: '2021-08-23T08:30:00',
     },
     {
       _id: nanoid(10),
@@ -70,7 +70,7 @@ export const events = [
       category: 'recovery',
       eventType: '12 Step',
       eventName: 'AA Meeting',
-      timeStart: '2021-08-16T16:30:00',
+      timeStart: '2021-08-23T16:30:00',
     },
     {
       _id: nanoid(10),
@@ -80,7 +80,7 @@ export const events = [
       category: 'personal',
       eventType: 'Yoga',
       eventName: 'Morning Yoga',
-      timeStart: '2021-08-17T08:30:00',
+      timeStart: '2021-08-24T08:30:00',
     },
     {
       _id: nanoid(10),
@@ -90,7 +90,7 @@ export const events = [
       category: 'personal',
       eventType: 'Gym',
       eventName: 'Evening Workout',
-      timeStart: '2021-08-18T20:30:00',
+      timeStart: '2021-08-24T20:30:00',
     },
     {
       _id: nanoid(10),
@@ -100,7 +100,7 @@ export const events = [
       category: 'recovery',
       eventType: '12 Step',
       eventName: 'AA Meeting',
-      timeStart: '2021-08-18T10:30:00',
+      timeStart: '2021-08-24T10:30:00',
     },
     {
       _id: nanoid(10),
@@ -110,7 +110,7 @@ export const events = [
       category: 'recovery',
       eventType: 'Therapy',
       eventName: 'Dr. Kripke, MD',
-      timeStart: '2021-08-19T12:30:00',
+      timeStart: '2021-08-26T12:30:00',
     },
     {
       _id: nanoid(10),
@@ -120,7 +120,7 @@ export const events = [
       category: 'personal',
       eventType: 'Yoga',
       eventName: 'Morning Yoga',
-      timeStart: '2021-08-20T08:30:00',
+      timeStart: '2021-08-27T08:30:00',
     },
     {
       _id: nanoid(10),
@@ -130,7 +130,7 @@ export const events = [
       category: 'recovery',
       eventType: '12 Step',
       eventName: 'AA Meeting',
-      timeStart: '2021-08-20T20:30:00',
+      timeStart: '2021-08-27T20:30:00',
     },
     {
       _id: nanoid(10),
@@ -140,6 +140,6 @@ export const events = [
       category: 'personal',
       eventType: 'Spiritual',
       eventName: 'Chuch Group',
-      timeStart: '2021-08-21T13:30:00',
+      timeStart: '2021-08-28T13:30:00',
     },
   ];
