@@ -12,7 +12,6 @@ export default {
         options: ['completed', 'scheduled', 'canceled'],
         control: 'radio',
     },
-   
     category: {
         options: ['call','recovery','personal'],
         control: 'radio',

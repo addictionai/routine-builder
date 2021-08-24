@@ -17,6 +17,9 @@ const useStyles = makeStyles({
     dateHeader: {
         display: 'flex',
         alignItems: 'center',
+        fontWeight: 600,
+        fontSize: '1.2rem',
+        fontFamily: 'Helvetica, sans-serif',
     },
     dateNav: {
         "& Button": {

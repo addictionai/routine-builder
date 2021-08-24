@@ -17,9 +17,10 @@ const useStyles = makeStyles({
         marginBottom: 10,
         fontWeight: 600,
         fontSize: '1.2rem',
+        fontFamily: 'Helvetica, sans-serif',
         color: FONT_COLOR_MAIN,
         "& Button": {
-          color: COLOR_LINK,
+            color: COLOR_LINK,
         },
     },
 });
