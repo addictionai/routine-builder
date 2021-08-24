@@ -4,9 +4,9 @@ import Routines from './Routines'
 // Data
 import { events as routineEvents } from '../../data';
 import { events as transportEvents } from '../../dataTransport';
-import { startDate, endDate } from './../../helpers/dateHelpers';
+import { startDate } from './../../helpers/dateHelpers';
 
-const start = '2021-08-20';
+const start = '2021-08-23';
  
 export default {
   title: 'Routines/Builder',
@@ -32,7 +32,7 @@ Routine.args = {
     eventType: 'activity',
     range: {
       startDate: startDate(start),
-      endDate: endDate(start),
+      workweek: false,
     },
 }
 
@@ -43,6 +43,6 @@ Transport.args = {
     eventType: 'request',
     range: {
       startDate: startDate(start),
-      endDate: endDate(start),
+      workweek: false,
     },
 }

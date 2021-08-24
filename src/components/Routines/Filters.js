@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react';
+import { Fragment, useContext, useCallback } from 'react';
 import PropTypes from 'prop-types'
 
 // UI
@@ -18,7 +18,6 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        margin: '0 15px 15px 15px',
         borderRadius: 8,
         color: FONT_COLOR_SECONDARY,
         fontSize: '1.1rem',
@@ -40,29 +39,34 @@ const useStyles = makeStyles({
 
 const Filters = ({setup}) => {
     
-    const { setSelectedStaff, setSelectedActivity } = useContext(RoutineContext);
+    const { 
+        selectedStaff,
+        selectedActivity,
+        setSelectedStaff,
+        setSelectedActivity, 
+    } = useContext(RoutineContext);
     const classes = useStyles();
  
     const isRoutine = setup === 'routine';
     const isTransport = setup === 'transport';
     const displayFilters = isTransport || isRoutine;
-    
-    const handleStaffFilter = (id) => {
-        setSelectedStaff(prevState => id);
-        setSelectedActivity(prevState => null);
-    }
 
-    const handleActivityFilter = (type) => {
-        setSelectedActivity(prevState => type);
-        setSelectedStaff(prevState => null);
-    }
+    const handleStaffFilter = useCallback((id) => {
+        if (selectedStaff !== id) setSelectedStaff(id)
+    },[selectedStaff, setSelectedStaff])
 
-    const StaffPicker = ({staff}) => {
-        return <Button onClick={() => handleStaffFilter(staff._id)}>
-            <div className={classes.avatar}><MemberAvatar {...staff} /></div> 
-            {staff.firstName}
-        </Button>
-    }
+    const handleActivityFilter = useCallback((type) => {
+        if(selectedActivity !== type) setSelectedActivity(type);
+    }, [selectedActivity, setSelectedActivity]);
+
+    // TODO: Review rerender issue with Vlad
+    // const StaffPicker = ({staff}) => {
+    //     return <Button onClick={() => handleStaffFilter(staff._id)}>
+    //         <div className={classes.avatar}><MemberAvatar {...staff} /></div> 
+    //         {staff.firstName}
+    //     </Button>
+    // }
+
     return (
         <Fragment>
             {displayFilters && 
@@ -70,7 +74,12 @@ const Filters = ({setup}) => {
                 {isTransport && 
                 <Fragment>
                     Filter by Staff
-                    {staffData.map(staffMember => <StaffPicker key={staffMember._id} staff={staffMember} />)}
+                    {staffData.map(staff => (
+                    <Button key={staff._id} onClick={() => handleStaffFilter(staff._id)}>
+                        <div className={classes.avatar}><MemberAvatar {...staff} /></div> 
+                        {staff.firstName}
+                    </Button>
+                    ))}
                     <Button onClick={() => handleStaffFilter(null)}>All</Button>
                 </Fragment>
                 }

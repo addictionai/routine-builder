@@ -3,7 +3,6 @@ import {useState} from 'react';
 // Data
 import { title as routineTitle, events as routineEvents } from './data';
 import { title as transportTitle, events as transportEvents } from './dataTransport';
-import { startDate, endDate } from './helpers/dateHelpers';
 
 // Components
 import Routines from './components/Routines/Routines';
@@ -19,30 +18,29 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, IconButton } from '@material-ui/core';
 import EventIcon from '@material-ui/icons/Event';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles({
   root: {
     position: 'absolute',
     top: 0, 
     left: 0,
-    minWidth: '100%',
     minHeight: '100%',
+    minWidth: '100%',
     height: 'auto',
     width: 'auto',
-    padding: 15,
     backgroundImage: BACKGROUND_COLOR,
   },
   container: {
     display: 'grid',
     gridTemplateColumns: '1fr',
     gridTemplateRows: '75px 1fr 50px',
+    padding: '0 15px 15px 15px',
   },
   header: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '0 10px',
+    padding: '0 15px',
     fontWeight: 600,
     fontSize: '1.2rem',
     color: FONT_COLOR_MAIN,
@@ -54,9 +52,9 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  dateRange: {  
-    marginLeft: 50,
+    "& span": {
+      margin: 12,
+    },
   },
   configSetup: {
     "& Button": {
@@ -84,17 +82,12 @@ const useStyles = makeStyles({
 const App = () => {
 
   const classes = useStyles();
-  const [start, setStart] = useState(Date.now())
   const [type, setType] = useState('routine')
-
-  const handleRefresh = () => {
-    setStart(Date.now());
-    console.log('[Routines] Refetching data...')
-  }
-
+  
   const handleSetupTransport = () => setType(prevType => 'transport');
   const handleSetupRoutines = () => setType(prevType => 'routine');
-
+  const handleRefresh = () => console.log('refreshing data...')
+  
   const config = {
     'routine': {
       title: routineTitle,
@@ -107,15 +100,11 @@ const App = () => {
       eventType: 'request',
     },
   };
-
+  
   const routineProps = {
-    setup: type,
     data: config?.[type].data,
+    setup: type,
     eventType: config?.[type].eventType,
-    range: {
-      startDate: startDate(start),
-      endDate: endDate(start),
-    },
   }
 
   return (
@@ -123,14 +112,7 @@ const App = () => {
       <div className={classes.container}>
         <div className={classes.header}>
           <div className={classes.headerMain}>
-            <div>
-              <IconButton onClick={null} aria-label="home" children={<EventIcon />} />
-              {config?.[type].title}
-            </div>
-            <div className={classes.dateRange}>
-              {startDate(start).format('MMM DD')} - {endDate(start).format('MMM DD, YYYY')}
-              <IconButton onClick={handleRefresh} aria-label="refresh" children={<ExpandMoreIcon />} />
-            </div>
+              <EventIcon /> <span>{config?.[type].title}</span>
           </div>
           <div className={classes.configSetup}>
             <IconButton onClick={handleRefresh} aria-label="refresh" children={<RefreshIcon />} />

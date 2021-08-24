@@ -2,7 +2,9 @@ import {useContext} from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment';
 
+// Util
 import { getWeekRange, getEventsForDate, sortEvents } from '../../helpers/dateHelpers';
+import { processFilters } from '../../helpers/filterHelpers';
 
 // UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,7 +19,7 @@ import { RoutineContext } from '../../context/RoutineContext';
 const useStyles = makeStyles({
     routineContainer: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(7, minmax(150px, 1fr))',
+        gridTemplateColumns: props => `repeat(${props.days}, minmax(150px, 1fr))`,
         gridTemplateRows: '1fr',
         borderRadius: 8,
         boxShadow: '0 1px 6px 0 rgba(32,33,36,0.28)',
@@ -57,18 +59,18 @@ const useStyles = makeStyles({
 
 const WeekView = ({data, range, eventType}) => {
     
-    const { hasFilters, filterFunction } = useContext(RoutineContext);
-    const classes = useStyles();
+    const { start, workweek, hasFilters, filterFunction } = useContext(RoutineContext)
+    const classes = useStyles({days: workweek ? 5 : 7});
     
-    const startDate = range.startDate.format('YYYY-MM-DD');
-    const weekDays = getWeekRange(startDate, 'YYYY-MM-DD');
-   
+    const weekDays = getWeekRange(start, 'YYYY-MM-DD', workweek);
+
     return (
     <div className={classes.routineContainer}>
         {weekDays.map(date => {
             const eventsForDate = getEventsForDate(data, date);
-            const sortedEvents = sortEvents(eventsForDate, 'timeStart');
-            const filteredEvents = sortedEvents.filter(filterFunction);
+            const sortedEvents = sortEvents(eventsForDate, 'timeStart');    
+            const filteredEvents = processFilters(sortedEvents, hasFilters, filterFunction);
+
             return (
             <DayColumn 
                 key={date} 
@@ -87,7 +89,7 @@ WeekView.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     range: PropTypes.shape({
         startDate: PropTypes.object.isRequired,
-        endDate: PropTypes.object.isRequired,
+        workweek: PropTypes.bool,
     }),
     eventType: PropTypes.string,
 }

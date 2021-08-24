@@ -80,7 +80,7 @@ const useStyles = makeStyles({
     button: {
         color: '#3269A5',
         fontFamily: 'sans-serif',
-        textTransform: 'lowercase',
+        textTransform: 'capitalize',
     }
 })
 

@@ -16,19 +16,22 @@ export const endDate = (start = Date.now()) => moment(start).endOf('isoWeek');
 
 /**
  * Create a Range of Dates for any given week
- * @param {*} start any date within the week
- * @param {*} format expected date object formatting for moment
+ * @param {string} start any date within the week
+ * @param {string} format expected date object formatting for moment
+ * @param {boolean} workweek limit results to Mon-Fri work week
  * @returns Array of dates for week range in ISO format (Mon-Sun) 
  */
-export const getWeekRange = (start, format) => {
+export const getWeekRange = (start, format, workweek = false) => {
     const dateForRange = start || Date.now();
     const startOfWeek = moment(dateForRange).startOf('isoWeek');
     const endOfWeek = moment(dateForRange).endOf('isoWeek');
-    
+    const endOfWorkWeek = moment(dateForRange).endOf('isoWeek').subtract(2, 'days');
+
     let weekDays = [];
     let day = startOfWeek;
+    const endOfWeekTarget = workweek ? endOfWorkWeek : endOfWeek;
 
-    while (day <= endOfWeek) {
+    while (day <= endOfWeekTarget) {
         weekDays.push(format ? day.format(format) : day.toDate());
         day = day.clone().add(1, 'd');
     }

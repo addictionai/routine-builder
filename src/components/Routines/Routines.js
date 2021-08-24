@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import RoutineContextProvider from '../../context/RoutineContext';
 
 // Components
-import Filters from './Filters';
+import Header from './Header';
 import WeekView from './WeekView';
 
 const Routines = ({data, range, setup, eventType}) => {
@@ -15,8 +15,8 @@ const Routines = ({data, range, setup, eventType}) => {
     return (
     <RoutineContextProvider value={{setup}}>
         <Fragment>
-            <Filters setup={setup} />
-            <WeekView data={data} eventType={eventType} range={range} />    
+            <Header setup={setup} hasFilters={true} />
+            <WeekView data={data} eventType={eventType} range={range} />
         </Fragment>
     </RoutineContextProvider>
     )
@@ -24,10 +24,6 @@ const Routines = ({data, range, setup, eventType}) => {
 
 Routines.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    range: PropTypes.shape({
-        startDate: PropTypes.object.isRequired,
-        endDate: PropTypes.object.isRequired,
-    }),
     setup: PropTypes.string.isRequired,
     eventType: PropTypes.string,
 }
