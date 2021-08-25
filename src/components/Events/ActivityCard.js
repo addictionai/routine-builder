@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import { Draggable } from 'react-beautiful-dnd';
 
 // UI
 import cn from 'classnames'
@@ -22,6 +23,7 @@ const EventCard = ({
     timeStart,
     showAvatars = true,
     avatarSize = "small",
+    id
 }) => {
 
     const classes = useStyles();
@@ -43,19 +45,26 @@ const EventCard = ({
     const eventDetailsClass = cn(classes.eventDetails, classes[category]);
 
     return (
-        <div className={classes.event}>
-            <div className={eventDetailsClass}>
-                <div>
-                    <div className={classes.type}>{eventType}</div>
-                    <div>{eventName}</div>
+        <Draggable
+            draggableId={id}
+        >
+            {(provided) => (
+                <div className={classes.event}>
+                    <div className={eventDetailsClass}>
+                        <div>
+                            <div className={classes.type}>{eventType}</div>
+                            <div>{eventName}</div>
+                        </div>
+                        {hasInvitedMembers && <InvitedMembers />}
+                    </div>
+                    <div className={classes.eventTime}>
+                        <div className={classes.time}>{moment(timeStart).format('LT')}</div>
+                        <Button className={classes.button} size="small">Change</Button>
+                    </div>
                 </div>
-                {hasInvitedMembers && <InvitedMembers />}
-            </div>
-            <div className={classes.eventTime}>
-                <div className={classes.time}>{moment(timeStart).format('LT')}</div>
-                <Button className={classes.button} size="small">Change</Button>
-            </div>
-        </div>
+            )}
+        </Draggable>
+        
     )
 }
 

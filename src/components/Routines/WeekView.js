@@ -15,6 +15,7 @@ import RequestEventCard from '../Events/RequestCard';
 
 // Context 
 import { RoutineContext } from '../../context/RoutineContext';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const WeekView = ({eventType}) => {
     
@@ -24,24 +25,27 @@ const WeekView = ({eventType}) => {
     const weekDays = getWeekRange(start, 'YYYY-MM-DD', workweek);
 
     return (
-    <div className={classes.routineContainer}>
-        {weekDays.map(date => {
-            const eventsForDate = getEventsForDate(eventsData, date);
-            const sortedEvents = sortEvents(eventsForDate, 'timeStart');    
-            const filteredEvents = processFilters(sortedEvents, hasFilters, filterFunction);
-            const dataToRender = hasFilters ? filteredEvents : sortedEvents;
+        <DragDropContext>
+            <div className={classes.routineContainer}>
+                {weekDays.map(date => {
+                    const eventsForDate = getEventsForDate(eventsData, date);
+                    const sortedEvents = sortEvents(eventsForDate, 'timeStart');    
+                    const filteredEvents = processFilters(sortedEvents, hasFilters, filterFunction);
+                    const dataToRender = hasFilters ? filteredEvents : sortedEvents;
 
-            return (
-            <DayColumn 
-                key={date} 
-                date={date} 
-                events={dataToRender} 
-                eventType={eventType} 
-                limit={8}
-            />
-            )
+                return (
+                    <DayColumn 
+                    key={date} 
+                    date={date} 
+                    events={dataToRender} 
+                    eventType={eventType} 
+                    limit={8}
+                    />
+                )
         })}
-    </div>
+            </div>
+        </DragDropContext>
+    
     )
 }
 
@@ -65,7 +69,8 @@ const DayColumn = (props) => {
     return (
     <div className={classes.day}>
         <DayHeader date={date} />
-        <DayBody events={events} limit={limit} type={eventType} />
+
+        <DayBody events={events} limit={limit} type={eventType} id={date} />
     </div>
     )
 }
@@ -86,21 +91,31 @@ const DayHeader = (props) => {
 
 const DayBody = (props) => {
     const classes = useStyles();
-    const {events, limit, type} = props;
+    const {events, limit, type, id} = props;
 
     const EventCard = (props) => {
         if(type === 'request') return <RequestEventCard {...props} />
-        if(type === 'activity') return <ActivityEventCard {...props} />
+        if(type === 'activity') return <ActivityEventCard {...props} id={id} />
         return null;
     }
 
     return (
-    <div className={classes.dayBody}>
-        {events
-            .filter((_,index) => index < limit)
-            .map((event, index) => <EventCard key={`${event._id}_${index}`} {...event} />)
-        }
-    </div>
+        <Droppable droppableId={id}>
+        {(provided) => (
+            <div 
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            className={classes.dayBody}
+            >
+                {events
+                .filter((_,index) => index < limit)
+                .map((event, index) => <EventCard key={`${event._id}_${index}`} {...event} />)
+                }
+            </div>
+        )}
+
+        </Droppable>
+    
     )    
 }
 
