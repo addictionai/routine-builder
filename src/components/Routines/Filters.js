@@ -36,12 +36,12 @@ const Filters = ({setup}) => {
     }, [selectedActivity, setSelectedActivity]);
 
     // TODO: Review rerender issue with Vlad
-    // const StaffPicker = ({staff}) => {
-    //     return <Button onClick={() => handleStaffFilter(staff._id)}>
-    //         <div className={classes.avatar}><MemberAvatar {...staff} /></div> 
-    //         {staff.firstName}
-    //     </Button>
-    // }
+    const StaffPicker = ({staff}) => {
+        return <Button onClick={() => handleStaffFilter(staff._id)}>
+            <div className={classes.avatar}><MemberAvatar {...staff} /></div> 
+            {staff.firstName}
+        </Button>
+    }
 
     return (
         <Fragment>
@@ -50,6 +50,7 @@ const Filters = ({setup}) => {
                 {isTransport && 
                 <Fragment>
                     Filter by Staff
+                    <StaffPicker staff={userData.staff[0]} />
                     {userData.staff.map(staff => (
                     <Button key={staff._id} onClick={() => handleStaffFilter(staff._id)}>
                         <div className={classes.avatar}><MemberAvatar {...staff} /></div> 

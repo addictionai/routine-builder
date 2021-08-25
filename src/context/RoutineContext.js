@@ -14,8 +14,7 @@ const RoutineContextProvider = ({children, value}) => {
     const isRoutine = setup === 'routine';
     const isTransport = setup === 'transport';
     const today = moment().format('YYYY-MM-DD');
-    let isLoading = false;
-
+    
     // State
     const [start, setStart] = useState(today);
     const [eventsData, setEventsData] = useState([]);
@@ -32,7 +31,7 @@ const RoutineContextProvider = ({children, value}) => {
       if(setup === 'routine') setSelectedStaff(null);
       if(setup === 'transport') setSelectedActivity(null);
 
-      return () => console.log('[RoutineContext] Changing setup:', setup)
+      //return () => console.log('[RoutineContext] Changing setup')
     }, [setup])
     
     useEffect(() => {
@@ -57,7 +56,7 @@ const RoutineContextProvider = ({children, value}) => {
     }
 
     // Handlers: Dates
-    const handleDateScroll = (amount = 1, unit = 'week') => {
+    const handleDateShift = (amount = 1, unit = 'week') => {
       const newDate = moment(start).add(amount, unit);
       setStart(prevState => newDate);
     }
@@ -68,13 +67,10 @@ const RoutineContextProvider = ({children, value}) => {
       setStart(prevState => dateChage);
     }
 
-    console.log(eventsData)
-
     // Export
     const contextValues = {
       today,
       start,
-      isLoading,
       eventsData,
       handleAddEvent,
       selectedStaff,
@@ -88,7 +84,7 @@ const RoutineContextProvider = ({children, value}) => {
       hasFilters,
       filterFunction,
       handleDateChange,
-      handleDateScroll,
+      handleDateShift,
       workweek,
       handleWorkweekToggle,
     }

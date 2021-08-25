@@ -54,7 +54,7 @@ export const getHourFormat = (time) => {
  * @param {string} date to filter events
  * @returns Array of Events for the specified date
  */
-export const getEventsForDate = (events, date) => {
+export const getEventsForDate = (events = [], date) => {
     return events
         .filter(event => moment(event.timeStart)
         .isSame(date, 'day'));
@@ -66,7 +66,7 @@ export const getEventsForDate = (events, date) => {
  * @param {string} key object key with start time
  * @returns Array of Events sorted in ascending order
  */
-export const sortEvents = (events, key) => {
+export const sortEvents = (events = [], key) => {
     const sorted = events.sort((a, b) => {
         const dateA = new Date(a[key]);
         const dateB = new Date(b[key]); 

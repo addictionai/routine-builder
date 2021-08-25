@@ -16,7 +16,7 @@ import Routines from './components/Routines/Routines';
 const App = () => {
   
   const classes = useStyles();
-  const [type, setType] = useState('transport')
+  const [type, setType] = useState('routine')
 
   const handleSetupTransport = () => setType(prevType => 'transport');
   const handleSetupRoutines = () => setType(prevType => 'routine');

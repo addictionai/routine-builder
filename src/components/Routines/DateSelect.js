@@ -10,8 +10,43 @@ import { Button, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { FONT_COLOR_SECONDARY } from '../../styles/dark';
+
+const DateSelect = ({showDateRange, showNavScroll, showNavToday}) => {
+    
+    const {start, handleDateShift, handleDateChange} = useContext(RoutineContext);
+    const classes = useStyles();
+
+    const displayStart = startDate(start).format('MMM DD');
+    const displayEnd = endDate(start).format('MMM DD, YYYY')
+
+    return (
+    <div className={classes.dateHeader}>
+        {showNavToday && 
+        <div className={classes.dateNav}>
+            <Button onClick={() => handleDateChange(Date.now())}>Today</Button>
+        </div>
+        }
+        {showNavScroll &&
+        <div className={classes.dateScroll}>    
+            <IconButton onClick={() => handleDateShift(-1, 'week')} aria-label="refresh" children={<ChevronLeftIcon />} />
+            <IconButton onClick={() => handleDateShift(1, 'week')} aria-label="refresh" children={<ChevronRightIcon />} />
+        </div>
+        }
+        {showDateRange && <div className={classes.dateRange}>{`${displayStart} - ${displayEnd}`}</div>}
+    </div>
+    )
+}
+
+DateSelect.propTypes = {
+    start: PropTypes.string,
+    showDateRange: PropTypes.bool,
+    showNavScroll: PropTypes.bool,
+    showNavToday: PropTypes.bool,
+}
+
+export default DateSelect
+
 
 const useStyles = makeStyles({
     dateHeader: {
@@ -39,38 +74,3 @@ const useStyles = makeStyles({
         padding: '12px 8px', // offset Button padding
     }
 });
-
-const DateSelect = ({showDateRange, showNavScroll, showNavToday}) => {
-    
-    const {start, handleDateScroll, handleDateChange} = useContext(RoutineContext);
-    const classes = useStyles();
-
-    const displayStart = startDate(start).format('MMM DD');
-    const displayEnd = endDate(start).format('MMM DD, YYYY')
-
-    return (
-    <div className={classes.dateHeader}>
-        {showNavToday && 
-        <div className={classes.dateNav}>
-            <Button onClick={() => handleDateChange(Date.now())}>Today</Button>
-        </div>
-        }
-        {showNavScroll &&
-        <div className={classes.dateScroll}>    
-            <IconButton onClick={() => handleDateScroll(-1, 'week')} aria-label="refresh" children={<ChevronLeftIcon />} />
-            <IconButton onClick={() => handleDateScroll(1, 'week')} aria-label="refresh" children={<ChevronRightIcon />} />
-        </div>
-        }
-        {showDateRange && <div className={classes.dateRange}>{`${displayStart} - ${displayEnd}`}</div>}
-    </div>
-    )
-}
-
-DateSelect.propTypes = {
-    start: PropTypes.string,
-    showDateRange: PropTypes.bool,
-    showNavScroll: PropTypes.bool,
-    showNavToday: PropTypes.bool,
-}
-
-export default DateSelect

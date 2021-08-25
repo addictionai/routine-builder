@@ -5,7 +5,7 @@
  * @param {string} filterFunction filter function to apply
  * @returns 
  */
-export const processFilters = (events, hasFilters, filterFunction) => {
+export const processFilters = (events = [], hasFilters, filterFunction) => {
     if(!hasFilters) return null;
     const clonedEvents = [...events];
     const filteredEvents = clonedEvents.filter(filterFunction);
