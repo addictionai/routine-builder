@@ -8,24 +8,36 @@ import RoutineContextProvider from '../../context/RoutineContext';
 import Header from './Header';
 import WeekView from './WeekView';
 
-const Routines = ({data, range, setup, eventType}) => {
+// Setup
+import { config } from '../../config';
+
+const Routines = ({range, setup}) => {
+
+    const headerProps = {
+        setup,
+        hasFilters: true,
+    };
+
+    const weekViewProps = {
+        data: config?.[setup].data,
+        eventType: config?.[setup].eventType,
+        range: range,
+    };
 
     console.log('[Routines] Builder Setup:', setup)
 
     return (
     <RoutineContextProvider value={{setup}}>
         <Fragment>
-            <Header setup={setup} hasFilters={true} />
-            <WeekView data={data} eventType={eventType} range={range} />
+            <Header {...headerProps} />
+            <WeekView {...weekViewProps} />
         </Fragment>
     </RoutineContextProvider>
     )
 }
 
 Routines.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
     setup: PropTypes.string.isRequired,
-    eventType: PropTypes.string,
 }
 
 export default Routines;

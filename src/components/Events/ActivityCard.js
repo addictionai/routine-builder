@@ -9,8 +9,69 @@ import { Button } from '@material-ui/core'
 // Components
 import MemberAvatar from '../Member/MemberAvatar'
 
-// Data - Temporary
-import { memberData } from '../../data'
+// Data
+import { userData } from '../../config'
+
+const EventCard = ({
+    _id, 
+    status, 
+    category,
+    memberId = 1,
+    eventType,
+    eventName, 
+    timeStart,
+    showAvatars = true,
+    avatarSize = "small",
+}) => {
+
+    const classes = useStyles();
+
+    const hasInvitedMembers = showAvatars;
+    const member = userData.members.find(m => m._id === memberId);
+
+    const avatarProps = {
+        size: avatarSize,
+        photo: member?.photo,
+        firstName: member?.lastName,
+        lastName: member?.lastName,
+    }
+
+    const InvitedMembers = () => {
+        return <MemberAvatar {...avatarProps} />
+    }
+
+    const eventDetailsClass = cn(classes.eventDetails, classes[category]);
+
+    return (
+        <div className={classes.event}>
+            <div className={eventDetailsClass}>
+                <div>
+                    <div className={classes.type}>{eventType}</div>
+                    <div>{eventName}</div>
+                </div>
+                {hasInvitedMembers && <InvitedMembers />}
+            </div>
+            <div className={classes.eventTime}>
+                <div className={classes.time}>{moment(timeStart).format('LT')}</div>
+                <Button className={classes.button} size="small">Change</Button>
+            </div>
+        </div>
+    )
+}
+
+EventCard.propTypes = {
+    _id: PropTypes.string, 
+    status: PropTypes.string, 
+    memberId: PropTypes.string, 
+    category: PropTypes.string,
+    eventType: PropTypes.string,
+    eventName: PropTypes.string, 
+    timeStart: PropTypes.string,
+    showAvatars: PropTypes.bool,
+    avatarSize: PropTypes.string,
+}
+
+export default EventCard
 
 const useStyles = makeStyles({
     event: {
@@ -83,64 +144,3 @@ const useStyles = makeStyles({
         textTransform: 'capitalize',
     }
 })
-
-const EventCard = ({
-    _id, 
-    status, 
-    category,
-    memberId = 1,
-    eventType,
-    eventName, 
-    timeStart,
-    showAvatars = true,
-    avatarSize = "small",
-}) => {
-
-    const classes = useStyles();
-
-    const hasInvitedMembers = showAvatars;
-    const member = memberData.find(m => m._id === memberId);
-
-    const avatarProps = {
-        size: avatarSize,
-        photo: member?.photo,
-        firstName: member?.lastName,
-        lastName: member?.lastName,
-    }
-
-    const InvitedMembers = () => {
-        return <MemberAvatar {...avatarProps} />
-    }
-
-    const eventDetailsClass = cn(classes.eventDetails, classes[category]);
-
-    return (
-        <div className={classes.event}>
-            <div className={eventDetailsClass}>
-                <div>
-                    <div className={classes.type}>{eventType}</div>
-                    <div>{eventName}</div>
-                </div>
-                {hasInvitedMembers && <InvitedMembers />}
-            </div>
-            <div className={classes.eventTime}>
-                <div className={classes.time}>{moment(timeStart).format('LT')}</div>
-                <Button className={classes.button} size="small">Change</Button>
-            </div>
-        </div>
-    )
-}
-
-EventCard.propTypes = {
-    _id: PropTypes.string, 
-    status: PropTypes.string, 
-    memberId: PropTypes.string, 
-    category: PropTypes.string,
-    eventType: PropTypes.string,
-    eventName: PropTypes.string, 
-    timeStart: PropTypes.string,
-    showAvatars: PropTypes.bool,
-    avatarSize: PropTypes.string,
-}
-
-export default EventCard

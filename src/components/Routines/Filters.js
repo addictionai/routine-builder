@@ -10,32 +10,8 @@ import { Button } from '@material-ui/core';
 import MemberAvatar from '../Member/MemberAvatar';
 
 // Data
-import { staffData } from '../../data';
+import { userData } from '../../config';
 import { RoutineContext } from '../../context/RoutineContext';
-
-const useStyles = makeStyles({
-    filters: {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        borderRadius: 8,
-        color: FONT_COLOR_SECONDARY,
-        fontSize: '1.1rem',
-        fontWeight: 600,
-        fontFamily: 'Helvetica, sans-serif',
-        "& Button": {
-            marginLeft: 10,
-            fontFamily: 'Helvetica, sans-serif',
-            textTransform: 'none',
-            fontSize: '0.9rem',
-            fontWeight: 800,
-            color: COLOR_LINK,
-        },
-    },
-    avatar: {
-        marginRight: 10,
-    },  
-});
 
 const Filters = ({setup}) => {
     
@@ -74,7 +50,7 @@ const Filters = ({setup}) => {
                 {isTransport && 
                 <Fragment>
                     Filter by Staff
-                    {staffData.map(staff => (
+                    {userData.staff.map(staff => (
                     <Button key={staff._id} onClick={() => handleStaffFilter(staff._id)}>
                         <div className={classes.avatar}><MemberAvatar {...staff} /></div> 
                         {staff.firstName}
@@ -103,3 +79,27 @@ Filters.propTypes = {
 }
 
 export default Filters
+
+const useStyles = makeStyles({
+    filters: {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        borderRadius: 8,
+        color: FONT_COLOR_SECONDARY,
+        fontSize: '1.1rem',
+        fontWeight: 600,
+        fontFamily: 'Helvetica, sans-serif',
+        "& Button": {
+            marginLeft: 10,
+            fontFamily: 'Helvetica, sans-serif',
+            textTransform: 'none',
+            fontSize: '0.9rem',
+            fontWeight: 800,
+            color: COLOR_LINK,
+        },
+    },
+    avatar: {
+        marginRight: 10,
+    },  
+});

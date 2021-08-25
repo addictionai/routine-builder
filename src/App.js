@@ -1,23 +1,52 @@
 import {useState} from 'react';
 
-// Data
-import { title as routineTitle, events as routineEvents } from './data';
-import { title as transportTitle, events as transportEvents } from './dataTransport';
-
-// Components
-import Routines from './components/Routines/Routines';
+// Setup
+import { config } from './config';
 
 // UI
-import { 
-  BACKGROUND_COLOR, 
-  FONT_COLOR_MAIN, 
-  FONT_COLOR_SECONDARY, 
-  COLOR_LINK, 
-} from './styles/dark';
+import { BACKGROUND_COLOR, FONT_COLOR_MAIN, FONT_COLOR_SECONDARY, COLOR_LINK } from './styles/dark';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, IconButton } from '@material-ui/core';
 import EventIcon from '@material-ui/icons/Event';
 import RefreshIcon from '@material-ui/icons/Refresh';
+
+// Components
+import Routines from './components/Routines/Routines';
+
+const App = () => {
+  
+  const classes = useStyles();
+  const [type, setType] = useState('transport')
+
+  const handleSetupTransport = () => setType(prevType => 'transport');
+  const handleSetupRoutines = () => setType(prevType => 'routine');
+  const handleRefresh = () => console.log('Refetching data')
+            
+  return (
+    <div className={classes.root}>
+      <div className={classes.container}>
+        <div className={classes.header}>
+          <div className={classes.headerMain}>
+              <EventIcon /> <span>{config?.[type].title}</span>
+          </div>
+          <div className={classes.configSetup}>
+            <IconButton onClick={handleRefresh} aria-label="refresh" children={<RefreshIcon />} />
+            <Button variant="outlined" aria-label="routines-view" onClick={handleSetupRoutines}>Routines</Button>
+            <Button variant="outlined" aria-label="transport-view" onClick={handleSetupTransport}>Transport</Button>
+          </div>
+        </div>
+        <div className={classes.body}>
+          <Routines setup={type} />
+        </div>
+        <div className={classes.footer}>
+          Routine Builder &copy; 2021 inRecovery
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
 
 const useStyles = makeStyles({
   root: {
@@ -78,57 +107,3 @@ const useStyles = makeStyles({
     color: FONT_COLOR_SECONDARY,
   },
 });
-
-const App = () => {
-
-  const classes = useStyles();
-  const [type, setType] = useState('routine')
-  
-  const handleSetupTransport = () => setType(prevType => 'transport');
-  const handleSetupRoutines = () => setType(prevType => 'routine');
-  const handleRefresh = () => console.log('refreshing data...')
-  
-  const config = {
-    'routine': {
-      title: routineTitle,
-      data: routineEvents,
-      eventType: 'activity',
-    },
-    'transport': {
-      title: transportTitle,
-      data: transportEvents,
-      eventType: 'request',
-    },
-  };
-  
-  const routineProps = {
-    data: config?.[type].data,
-    setup: type,
-    eventType: config?.[type].eventType,
-  }
-
-  return (
-    <div className={classes.root}>
-      <div className={classes.container}>
-        <div className={classes.header}>
-          <div className={classes.headerMain}>
-              <EventIcon /> <span>{config?.[type].title}</span>
-          </div>
-          <div className={classes.configSetup}>
-            <IconButton onClick={handleRefresh} aria-label="refresh" children={<RefreshIcon />} />
-            <Button variant="outlined" aria-label="routines-view" onClick={handleSetupRoutines}>Routines</Button>
-            <Button variant="outlined" aria-label="transport-view" onClick={handleSetupTransport}>Transport</Button>
-          </div>
-        </div>
-        <div className={classes.body}>
-          <Routines {...routineProps} />
-        </div>
-        <div className={classes.footer}>
-          Routine Builder &copy; 2021 inRecovery
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default App;

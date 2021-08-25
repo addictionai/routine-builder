@@ -8,6 +8,32 @@ import { makeStyles } from '@material-ui/core/styles';
 // Components
 import DateSelect from './DateSelect';
 import Filters from './Filters';
+import AddEvent from './AddEvent';
+
+const Header = ({setup}) => {
+
+    const classes = useStyles();
+
+    const dateSelectProps = {
+        showDateRange: true,
+        showNavScroll: true,
+        showNavToday: true,
+    }
+
+    return (
+        <div className={classes.header}>
+            <DateSelect {...dateSelectProps}/>
+            <AddEvent />
+            <Filters setup={setup} />
+        </div>
+    )
+}
+
+Header.propTypes = {
+    setup: PropTypes.string.isRequired,
+}
+
+export default Header
 
 const useStyles = makeStyles({
     header: {
@@ -24,27 +50,3 @@ const useStyles = makeStyles({
         },
     },
 });
-
-const Header = ({setup}) => {
-
-    const classes = useStyles();
-
-    const dateSelectProps = {
-        showDateRange: true,
-        showNavScroll: true,
-        showNavToday: true,
-    }
-
-    return (
-        <div className={classes.header}>
-            <DateSelect {...dateSelectProps}/>
-            <Filters setup={setup} />
-        </div>
-    )
-}
-
-Header.propTypes = {
-    setup: PropTypes.string.isRequired,
-}
-
-export default Header

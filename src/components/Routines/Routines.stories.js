@@ -2,8 +2,8 @@ import React from 'react'
 import Routines from './Routines'
 
 // Data
-import { events as routineEvents } from '../../data';
-import { events as transportEvents } from '../../dataTransport';
+import { events as routineEvents } from '../../data/dataRoutines';
+import { events as transportEvents } from '../../data/dataTransport';
 import { startDate } from './../../helpers/dateHelpers';
 
 const start = '2021-08-23';

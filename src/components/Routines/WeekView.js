@@ -57,25 +57,26 @@ const useStyles = makeStyles({
     },
 });
 
-const WeekView = ({data, range, eventType}) => {
+const WeekView = ({eventType}) => {
     
-    const { start, workweek, hasFilters, filterFunction } = useContext(RoutineContext)
+    const { start, workweek, isLoading, eventsData, hasFilters, filterFunction } = useContext(RoutineContext)
     const classes = useStyles({days: workweek ? 5 : 7});
-    
+
     const weekDays = getWeekRange(start, 'YYYY-MM-DD', workweek);
 
     return (
     <div className={classes.routineContainer}>
         {weekDays.map(date => {
-            const eventsForDate = getEventsForDate(data, date);
+            const eventsForDate = getEventsForDate(eventsData, date);
             const sortedEvents = sortEvents(eventsForDate, 'timeStart');    
             const filteredEvents = processFilters(sortedEvents, hasFilters, filterFunction);
+            const dataToRender = hasFilters ? filteredEvents : sortedEvents;
 
             return (
             <DayColumn 
                 key={date} 
                 date={date} 
-                events={hasFilters ? filteredEvents : sortedEvents} 
+                events={isLoading ? [] : dataToRender} 
                 eventType={eventType} 
                 limit={8}
             />
@@ -138,7 +139,7 @@ const DayBody = (props) => {
     <div className={classes.dayBody}>
         {events
             .filter((_,index) => index < limit)
-            .map(event => <EventCard {...event} key={event._id} />)
+            .map((event, index) => <EventCard key={`${event._id}_${index}`} {...event} />)
         }
     </div>
     )    
