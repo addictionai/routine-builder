@@ -1,4 +1,4 @@
-import { Fragment, useContext, useMemo } from 'react';
+import { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
 // UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,10 +21,6 @@ const Filters = ({setup}) => {
     const isTransport = setup === 'transport';
     const displayFilters = isTransport || isRoutine;
 
-    const StaffPicker = useMemo(() => ({staff}) => (
-        <StaffButton staff={staff} />
-    ), []);
-
     return (
         <Fragment>
             {displayFilters && 
@@ -32,7 +28,7 @@ const Filters = ({setup}) => {
                 {isTransport && 
                 <Fragment>
                     Filter by Staff
-                    {userData.staff.map(staff => <StaffPicker key={staff._id} staff={staff} />)}
+                    {userData.staff.map(staff => <StaffButton key={staff._id} staff={staff} />)}
                     <Button onClick={() => handleStaffFilter(null)}>All</Button>
                 </Fragment>
                 }
