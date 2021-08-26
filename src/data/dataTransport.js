@@ -41,6 +41,15 @@ export const events = [
     },
     {
       _id: nanoid(10),
+      status: 'assigned',
+      memberId: '3',
+      staffId: '3',
+      destinationType: 'School',
+      destination: 'IT Academy',
+      timeStart: '2021-08-26T09:30:00',
+    },
+    {
+      _id: nanoid(10),
       status: 'completed',
       memberId: '1',
       staffId: '2',
