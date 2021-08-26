@@ -9,12 +9,18 @@ import { processFilters } from '../../helpers/filterHelpers';
 // UI
 import { makeStyles } from '@material-ui/core/styles';
 
+// Context 
+import { RoutineContext } from '../../context/RoutineContext';
+
 // Components
 import ActivityEventCard from '../Events/ActivityCard';
 import RequestEventCard from '../Events/RequestCard';
 
-// Context 
-import { RoutineContext } from '../../context/RoutineContext';
+// Dynamic Components
+const eventCards = {
+    activity: ActivityEventCard,
+    request: RequestEventCard,
+}
 
 const WeekView = ({eventType}) => {
     
@@ -88,21 +94,18 @@ const DayBody = (props) => {
     const classes = useStyles();
     const {events, limit, type} = props;
 
-    const EventCard = (props) => {
-        if(type === 'request') return <RequestEventCard {...props} />
-        if(type === 'activity') return <ActivityEventCard {...props} />
-        return null;
-    }
+    const EventCard = eventCards[type] || eventCards.activity;
 
     return (
     <div className={classes.dayBody}>
         {events
             .filter((_,index) => index < limit)
-            .map((event, index) => <EventCard key={`${event._id}_${index}`} {...event} />)
+            .map((event, index) => <EventCard key={`${event._id}_${index}`} type={type} {...event} />)
         }
     </div>
     )    
 }
+
 
 // Styles
 const useStyles = makeStyles({
