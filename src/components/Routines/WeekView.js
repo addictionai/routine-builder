@@ -27,7 +27,7 @@ const WeekView = ({eventType}) => {
     return (
         <DragDropContext>
             <div className={classes.routineContainer}>
-                {weekDays.map(date => {
+                {weekDays.map((date, index) => {
                     const eventsForDate = getEventsForDate(eventsData, date);
                     const sortedEvents = sortEvents(eventsForDate, 'timeStart');    
                     const filteredEvents = processFilters(sortedEvents, hasFilters, filterFunction);
@@ -40,6 +40,7 @@ const WeekView = ({eventType}) => {
                     events={dataToRender} 
                     eventType={eventType} 
                     limit={8}
+                    index={index}
                     />
                 )
         })}
@@ -64,13 +65,12 @@ export default WeekView
 // Grid Components
 const DayColumn = (props) => {
     const classes = useStyles();
-    const {date = Date.now(), events = [], limit = 8, eventType } = props;
+    const {date = Date.now(), events = [], limit = 8, eventType, index } = props;
 
     return (
     <div className={classes.day}>
         <DayHeader date={date} />
-
-        <DayBody events={events} limit={limit} type={eventType} id={date} />
+        <DayBody events={events} limit={limit} type={eventType} id={index} />
     </div>
     )
 }
@@ -99,8 +99,10 @@ const DayBody = (props) => {
         return null;
     }
 
+    const droppableId = id.toString();
+
     return (
-        <Droppable droppableId={id}>
+        <Droppable droppableId={droppableId}>
         {(provided) => (
             <div 
             ref={provided.innerRef}
@@ -109,8 +111,9 @@ const DayBody = (props) => {
             >
                 {events
                 .filter((_,index) => index < limit)
-                .map((event, index) => <EventCard key={`${event._id}_${index}`} {...event} />)
+                .map((event, index) => <EventCard key={`${event._id}_${index}`} {...event} index={index} />)
                 }
+                {provided.placeholder}
             </div>
         )}
 

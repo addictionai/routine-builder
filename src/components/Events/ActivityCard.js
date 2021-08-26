@@ -23,7 +23,7 @@ const EventCard = ({
     timeStart,
     showAvatars = true,
     avatarSize = "small",
-    id
+    index
 }) => {
 
     const classes = useStyles();
@@ -44,15 +44,24 @@ const EventCard = ({
 
     const eventDetailsClass = cn(classes.eventDetails, classes[category]);
 
+    const draggableId = index.toString();
+
     return (
         <Draggable
-            draggableId={id}
+            draggableId={draggableId}
+            index={index}
+            key={_id}
         >
             {(provided) => (
-                <div className={classes.event}>
+                <div 
+                className={classes.event} 
+                ref={provided.innerRef} 
+                {...provided.draggableProps} 
+                {...provided.dragHandleProps}
+                >
                     <div className={eventDetailsClass}>
                         <div>
-                            <div className={classes.type}>{eventType}</div>
+                            <div className={classes.type}>{eventType}</div>R
                             <div>{eventName}</div>
                         </div>
                         {hasInvitedMembers && <InvitedMembers />}
