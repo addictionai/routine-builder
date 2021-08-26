@@ -43,6 +43,6 @@ export const staffData = [
       status: 'disabled',
       firstName: 'Jimmy',
       lastName: 'Joe',
-      photo: 'https://images.generated.photos/iAoKYM0ch2fpvHJl3-yNnijrGka2uLgHjw_2fS9KgmQ/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/MTMyMDk5LmpwZw.jpg',
+      photo: 'https://images.generated.photos/SOoWkTAy8mDpf7agzTf6vrfNofKBjR6T1QOpe2VdUDA/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/OTQ5ODExLmpwZw.jpg',
     }
 ];

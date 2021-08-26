@@ -1,4 +1,4 @@
-import {Fragment, createContext, useEffect, useState} from 'react';
+import {Fragment, createContext, useEffect, useState, useCallback} from 'react';
 import { nanoid } from 'nanoid';
 import moment from 'moment';
 
@@ -45,6 +45,15 @@ const RoutineContextProvider = ({children, value}) => {
     const staffFilter = event => event.staffId === selectedStaff && event.status !== 'denied';
     const filterFunction = isRoutine ? activityFilter : isTransport ? staffFilter : noFilter;
     
+    // Handlers: Filters
+    const handleStaffFilter = useCallback((id) => {
+      if (selectedStaff !== id) setSelectedStaff(id)
+    }, [selectedStaff, setSelectedStaff]);
+
+    const handleActivityFilter = useCallback((type) => {
+      if(selectedActivity !== type) setSelectedActivity(type);
+    }, [selectedActivity, setSelectedActivity]);
+
     // Handlers: Data
     const loadData = async (type) => {
       setEventsData(config?.[type].data);
@@ -77,6 +86,8 @@ const RoutineContextProvider = ({children, value}) => {
       setSelectedStaff,
       selectedActivity,
       setSelectedActivity,
+      handleStaffFilter,
+      handleActivityFilter,
       routineType,
       setRoutineType,
       isRoutine,
