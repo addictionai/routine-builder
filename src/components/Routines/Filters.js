@@ -1,6 +1,5 @@
 import { Fragment, useContext, useMemo } from 'react';
-import PropTypes from 'prop-types'
-
+import PropTypes from 'prop-types';
 // UI
 import { makeStyles } from '@material-ui/core/styles';
 import { FONT_COLOR_SECONDARY, COLOR_LINK } from '../../styles/dark';
@@ -33,7 +32,7 @@ const Filters = ({setup}) => {
                 {isTransport && 
                 <Fragment>
                     Filter by Staff
-                    {userData.staff.map(staff => <StaffPicker staff={staff} />)}
+                    {userData.staff.map(staff => <StaffPicker key={staff._id} staff={staff} />)}
                     <Button onClick={() => handleStaffFilter(null)}>All</Button>
                 </Fragment>
                 }
