@@ -15,11 +15,13 @@ import { RoutineContext } from '../../context/RoutineContext';
 // Components
 import ActivityEventCard from '../Events/ActivityCard';
 import RequestEventCard from '../Events/RequestCard';
+import MinimalEventCard from '../Events/MinimalCard';
 
 // Dynamic Components
 const eventCards = {
     activity: ActivityEventCard,
     request: RequestEventCard,
+    default: MinimalEventCard,
 }
 
 const WeekView = ({eventType}) => {
@@ -94,8 +96,9 @@ const DayBody = (props) => {
     const classes = useStyles();
     const {events, limit, type} = props;
 
-    const EventCard = eventCards[type] || eventCards.activity;
+    const EventCard = eventCards[type] || eventCards.default;
 
+    console.log('EventCard >>', EventCard)
     return (
     <div className={classes.dayBody}>
         {events

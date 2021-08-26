@@ -47,14 +47,6 @@ const EventCard = ({
 
     const statusClass = cn(classes.status, classes[status]);
 
-    const AssignedToStaff = ({staff}) => {
-        return (
-        <div className={classes.assignedTo}>
-            <MemberCard {...staff} size="small" />
-        </div>
-        )
-    };
-
     return (
         <div className={classes.event}>
             <div className={classes.eventTime}>
@@ -69,6 +61,16 @@ const EventCard = ({
         </div>
     )
 }
+
+const AssignedToStaff = ({staff}) => {
+    const classes = useStyles();
+    
+    return (
+    <div className={classes.assignedTo}>
+        <MemberCard {...staff} size="small" />
+    </div>
+    )
+};
 
 EventCard.propTypes = {
     _id: PropTypes.string, 

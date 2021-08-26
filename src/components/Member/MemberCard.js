@@ -9,6 +9,7 @@ import MemberAvatar from './MemberAvatar';
 const useStyles = makeStyles({
     member: {
         display: 'flex',
+        flexDirection: props => !!props.rtl ? 'row-reverse' : 'row',
         alignItems: 'center',
         margin: '5px 0',
         fontFamily: 'Helvetica, sans-serif',
@@ -18,6 +19,7 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
+        margin: 10,
     },
     name: {
         fontSize: '0.95rem',
@@ -27,13 +29,11 @@ const useStyles = makeStyles({
         color: '#8C9AA7',
         fontSize: '0.8rem',
     },
-    avatar: { marginRight: 10 },
 });
 
-const MemberCard = ({firstName, lastName, photo, location, size = 'medium'}) => {
+const MemberCard = ({firstName, lastName, photo, location, size = 'medium', showName = true, rtl = false}) => {
 
-    const classes = useStyles();
-
+    const classes = useStyles({rtl});
     const displayName = `${firstName} ${lastName?.[0]}.`
 
     const avatarProps = {
@@ -49,7 +49,7 @@ const MemberCard = ({firstName, lastName, photo, location, size = 'medium'}) => 
             <MemberAvatar {...avatarProps} />
         </div> 
         <div className={classes.memberDetails}>
-            <div className={classes.name}>{displayName}</div>
+            {showName ? <div className={classes.name}>{displayName}</div> : null}
             {!!location ? <div className={classes.memberLocation}>{location}</div> : null}
         </div>
     </div>
@@ -62,6 +62,8 @@ MemberCard.propTypes = {
     photo: PropTypes.string,
     location: PropTypes.string,
     size: PropTypes.string,
+    showName: PropTypes.bool,
+    rtl: PropTypes.bool,
 }
 
 export default MemberCard
