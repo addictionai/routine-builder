@@ -48,7 +48,7 @@ const EventCard = ({
 
     return (
         <Draggable
-            draggableId={draggableId}
+            draggableId={_id}
             index={index}
             key={_id}
         >
