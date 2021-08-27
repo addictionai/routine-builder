@@ -69,6 +69,10 @@ const RoutineContextProvider = ({children, value}) => {
       const newDate = moment(start).add(amount, unit);
       setStart(prevState => newDate);
     }
+    const handleDragShift = (startDate, amount = 1, unit = 'day') => {
+      const newDate = moment(startDate).add(amount, unit);
+      return newDate;
+    }
     const handleWorkweekToggle = () => {
       setWorkweek(prevState => !prevState)
     }
@@ -98,6 +102,7 @@ const RoutineContextProvider = ({children, value}) => {
       handleDateShift,
       workweek,
       handleWorkweekToggle,
+      handleDragShift,
     }
     
     //console.log('[RoutineContext]', contextValues);

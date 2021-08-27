@@ -1,4 +1,4 @@
-import {useContext} from 'react'
+import {useContext, useState} from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment';
 
@@ -17,15 +17,65 @@ import RequestEventCard from '../Events/RequestCard';
 import { RoutineContext } from '../../context/RoutineContext';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
-const WeekView = ({eventType}) => {
+const WeekView = ({eventType, data}) => {
+
+    const [eventsPerWeek, setEvents] = useState([]);
     
-    const { start, workweek, eventsData, hasFilters, filterFunction } = useContext(RoutineContext)
+    const { start, workweek, eventsData, hasFilters, filterFunction, handleDragShift } = useContext(RoutineContext)
     const classes = useStyles({days: workweek ? 5 : 7});
 
     const weekDays = getWeekRange(start, 'YYYY-MM-DD', workweek);
 
+    const onDragEnd = (result) => {
+       
+        const { destination, source, draggableId } = result;
+        const dayShift = destination.droppableId - source.droppableId;
+
+        const eventData = data.filter(event => event._id === draggableId);
+        const modifiedEvent = {
+            ...eventData[0],
+            timeStart: () => handleDragShift(eventData[0].timeStart, dayShift, 'day'),
+        }
+        console.log('onDragEnd', eventData, modifiedEvent);
+
+        if (!destination) {
+          return;
+        }
+    
+        if (
+          destination.droppableId === source.droppableId &&
+          destination.index === source.index
+        ) {
+          return;
+        }
+    
+        // const start = this.state.columns[source.droppableId];
+        // const finish = this.state.columns[destination.droppableId];
+    
+        // if (start === finish) {
+        //   const newTaskIds = Array.from(start.taskIds);
+        //   newTaskIds.splice(source.index, 1);
+        //   newTaskIds.splice(destination.index, 0, draggableId);
+    
+        //   const newColumn = {
+        //     ...start,
+        //     taskIds: newTaskIds,
+        //   };
+    
+        //   const newState = {
+        //     ...this.state,
+        //     columns: {
+        //       ...this.state.columns,
+        //       [newColumn.id]: newColumn,
+        //     },
+        //   };
+    
+        //   this.setState(newState);
+        //   return;
+    }
+
     return (
-        <DragDropContext>
+        <DragDropContext onDragEnd={onDragEnd} >
             <div className={classes.routineContainer}>
                 {weekDays.map((date, index) => {
                     const eventsForDate = getEventsForDate(eventsData, date);
