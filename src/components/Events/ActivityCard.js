@@ -13,6 +13,22 @@ import MemberAvatar from '../Member/MemberAvatar'
 // Data
 import { userData } from '../../config'
 
+
+export const EventCardDraggableWrapper = ({ _id, index, ...props }) => {
+    return <Draggable
+            draggableId={_id}
+            index={index}
+            key={_id}
+        >
+        {(provided) => (
+            <EventCard {...props} provided={provided} />
+        )}
+    </Draggable>
+    
+    
+}
+
+
 const EventCard = ({
     _id, 
     status, 
@@ -23,7 +39,8 @@ const EventCard = ({
     timeStart,
     showAvatars = true,
     avatarSize = "small",
-    index
+    index,
+    provided
 }) => {
 
     const classes = useStyles();
@@ -45,17 +62,11 @@ const EventCard = ({
     const eventDetailsClass = cn(classes.eventDetails, classes[category]);
 
     return (
-        <Draggable
-            draggableId={_id}
-            index={index}
-            key={_id}
-        >
-            {(provided) => (
                 <div 
                 className={classes.event} 
-                ref={provided.innerRef} 
-                {...provided.draggableProps} 
-                {...provided.dragHandleProps}
+                ref={provided?.innerRef} 
+                {...provided?.draggableProps} 
+                {...provided?.dragHandleProps}
                 >
                     <div className={eventDetailsClass}>
                         <div>
@@ -68,10 +79,7 @@ const EventCard = ({
                         <div className={classes.time}>{moment(timeStart).format('LT')}</div>
                         <Button className={classes.button} size="small">Change</Button>
                     </div>
-                </div>
-            )}
-        </Draggable>
-        
+                </div>        
     )
 }
 

@@ -10,7 +10,7 @@ import { processFilters } from '../../helpers/filterHelpers';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Components
-import ActivityEventCard from '../Events/ActivityCard';
+import {EventCardDraggableWrapper} from '../Events/ActivityCard';
 import RequestEventCard from '../Events/RequestCard';
 
 // Context 
@@ -117,7 +117,7 @@ const DayBody = (props) => {
 
     const EventCard = (props) => {
         if(type === 'request') return <RequestEventCard {...props} />
-        if(type === 'activity') return <ActivityEventCard {...props} id={id} />
+        if(type === 'activity') return <EventCardDraggableWrapper {...props} id={id} />
         return null;
     }
 
