@@ -59,7 +59,7 @@ const EventCard = ({
                 >
                     <div className={eventDetailsClass}>
                         <div>
-                            <div className={classes.type}>{eventType}</div>R
+                            <div className={classes.type}>{eventType}</div>
                             <div>{eventName}</div>
                         </div>
                         {hasInvitedMembers && <InvitedMembers />}
