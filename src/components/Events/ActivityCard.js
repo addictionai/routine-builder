@@ -44,8 +44,6 @@ const EventCard = ({
 
     const eventDetailsClass = cn(classes.eventDetails, classes[category]);
 
-    const draggableId = index.toString();
-
     return (
         <Draggable
             draggableId={_id}
