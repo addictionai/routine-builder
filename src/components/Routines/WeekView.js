@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment';
 
 // Util
-import { getWeekRange, getEventsForDate, sortEvents } from '../../helpers/dateHelpers';
+import { getWeekRange, getEventsForDate, sortEvents, getDaysDiff } from '../../helpers/dateHelpers';
 import { processFilters } from '../../helpers/filterHelpers';
 
 // UI
@@ -16,6 +16,9 @@ import { RoutineContext } from '../../context/RoutineContext';
 import ActivityEventCard from '../Events/ActivityCard';
 import RequestEventCard from '../Events/RequestCard';
 import MinimalEventCard from '../Events/MinimalCard';
+
+import { DndContextProvider } from '../../context/DndContext';
+import { useDrop } from 'react-dnd';
 
 // Dynamic Components
 const eventCards = {
@@ -33,22 +36,24 @@ const WeekView = ({eventType}) => {
 
     return (
     <div className={classes.routineContainer}>
-        {weekDays.map(date => {
-            const eventsForDate = getEventsForDate(eventsData, date);
-            const sortedEvents = sortEvents(eventsForDate, 'timeStart');    
-            const filteredEvents = processFilters(sortedEvents, hasFilters, filterFunction);
-            const dataToRender = hasFilters ? filteredEvents : sortedEvents;
+        <DndContextProvider>
+            {weekDays.map(date => {
+                const eventsForDate = getEventsForDate(eventsData, date);
+                const sortedEvents = sortEvents(eventsForDate, 'timeStart');    
+                const filteredEvents = processFilters(sortedEvents, hasFilters, filterFunction);
+                const dataToRender = hasFilters ? filteredEvents : sortedEvents;
 
-            return (
-            <DayColumn 
-                key={date} 
-                date={date} 
-                events={dataToRender} 
-                eventType={eventType} 
-                limit={8}
-            />
-            )
-        })}
+                return (
+                <DayColumn 
+                    key={date} 
+                    date={date} 
+                    events={dataToRender} 
+                    eventType={eventType} 
+                    limit={8}
+                />
+                )
+            })}
+        </DndContextProvider>
     </div>
     )
 }
@@ -73,7 +78,7 @@ const DayColumn = (props) => {
     return (
     <div className={classes.day}>
         <DayHeader date={date} />
-        <DayBody events={events} limit={limit} type={eventType} />
+        <DayBody events={events} limit={limit} type={eventType} date={date} />
     </div>
     )
 }
@@ -94,13 +99,37 @@ const DayHeader = (props) => {
 
 const DayBody = (props) => {
     const classes = useStyles();
-    const {events, limit, type} = props;
+    const { events, limit, type, date } = props;
+
+    const { eventsData, handleDragShift, handleModifyEvent } = useContext(RoutineContext);
+
+    const handleDrop = (_id, date) => {
+        const event = eventsData.find(event => event._id === _id)
+        const dayShift = getDaysDiff(date, event.timeStart);
+        const newDate = handleDragShift(event.timeStart, dayShift, 'day').format()
+        const modifiedEvent = {
+            ...event,
+            timeStart: newDate,
+        }
+        handleModifyEvent(modifiedEvent);
+    }
+    
+    const [, drop] = useDrop(
+        () => ({
+            accept: 'Card',
+            drop: ({ _id, timeStart }) => {     
+                handleDrop(_id, date)
+            },
+        }),
+        [date, eventsData]
+    );
+
 
     const EventCard = eventCards[type] || eventCards.default;
 
     console.log('EventCard >>', EventCard)
     return (
-    <div className={classes.dayBody}>
+    <div className={classes.dayBody} ref={drop}>
         {events
             .filter((_,index) => index < limit)
             .map((event, index) => <EventCard key={`${event._id}_${index}`} type={type} {...event} />)

@@ -74,3 +74,7 @@ export const sortEvents = (events = [], key) => {
     })
     return sorted;
 }
+
+export const getDaysDiff = (date1, date2) => {
+    return moment(date1).startOf('day').diff(moment(date2).startOf('day'), 'days', false)
+}

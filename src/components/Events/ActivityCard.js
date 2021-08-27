@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import { useDrag } from 'react-dnd'
 
 // UI
 import cn from 'classnames'
@@ -23,6 +24,13 @@ const EventCard = ({
     showAvatars = true,
     avatarSize = "small",
 }) => {
+    const [, drag] = useDrag(() => ({
+        type: 'Card',
+        item: { _id, timeStart },
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging()
+        })
+    }))
 
     const classes = useStyles();
 
@@ -43,7 +51,7 @@ const EventCard = ({
     const eventDetailsClass = cn(classes.eventDetails, classes[category]);
 
     return (
-        <div className={classes.event}>
+        <div className={classes.event} ref={drag}>
             <div className={eventDetailsClass}>
                 <div>
                     <div className={classes.type}>{eventType}</div>

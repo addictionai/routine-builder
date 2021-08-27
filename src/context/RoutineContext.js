@@ -64,6 +64,15 @@ const RoutineContextProvider = ({children, value}) => {
       console.log('RoutineContext] event added:', newEventData)
     }
 
+    const handleModifyEvent = (modifiedEvent) => {
+      setEventsData(prevData => prevData.map(event => event._id === modifiedEvent._id ? modifiedEvent : event))
+    }
+  
+    const handleDragShift = (startDate, amount = 1, unit = 'day') => {
+      const newDate = moment(startDate).add(amount, unit);
+      return newDate;
+    }
+  
     // Handlers: Dates
     const handleDateShift = (amount = 1, unit = 'week') => {
       const newDate = moment(start).add(amount, unit);
@@ -98,6 +107,8 @@ const RoutineContextProvider = ({children, value}) => {
       handleDateShift,
       workweek,
       handleWorkweekToggle,
+      handleModifyEvent,
+      handleDragShift
     }
     
     //console.log('[RoutineContext]', contextValues);
