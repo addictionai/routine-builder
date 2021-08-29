@@ -7,16 +7,13 @@ import { makeStyles} from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
 
 // Components
-import MemberAvatar from '../Member/MemberAvatar'
-
-// Data
-import { userData } from '../../config'
+import InvitedMembers from '../Member/MemberAvatarGroup'
 
 const EventCard = ({
     _id, 
     status, 
     category,
-    memberId = 1,
+    invitedMembers = [],
     eventType,
     eventName, 
     timeStart,
@@ -26,30 +23,19 @@ const EventCard = ({
 
     const classes = useStyles();
 
-    const hasInvitedMembers = showAvatars;
-    const member = userData.members.find(m => m._id === memberId);
-
-    const avatarProps = {
-        size: avatarSize,
-        photo: member?.photo,
-        firstName: member?.lastName,
-        lastName: member?.lastName,
+    const invitedMemberProps = {
+        members: invitedMembers,
+        avatarSize,
     }
-
-    const InvitedMembers = () => {
-        return <MemberAvatar {...avatarProps} />
-    }
-
-    const eventDetailsClass = cn(classes.eventDetails, classes[category]);
 
     return (
         <div className={classes.event}>
-            <div className={eventDetailsClass}>
+            <div className={cn(classes.eventDetails, classes[category])}>
                 <div>
                     <div className={classes.type}>{eventType}</div>
                     <div>{eventName}</div>
                 </div>
-                {hasInvitedMembers && <InvitedMembers />}
+                {showAvatars && <InvitedMembers {...invitedMemberProps} />}
             </div>
             <div className={classes.eventTime}>
                 <div className={classes.time}>{moment(timeStart).format('LT')}</div>
@@ -62,7 +48,7 @@ const EventCard = ({
 EventCard.propTypes = {
     _id: PropTypes.string, 
     status: PropTypes.string, 
-    memberId: PropTypes.string, 
+    invitedMembers: PropTypes.arrayOf(PropTypes.string),
     category: PropTypes.string,
     eventType: PropTypes.string,
     eventName: PropTypes.string, 
@@ -72,6 +58,7 @@ EventCard.propTypes = {
 }
 
 export default EventCard
+
 
 const useStyles = makeStyles({
     event: {
@@ -142,5 +129,5 @@ const useStyles = makeStyles({
         color: '#3269A5',
         fontFamily: 'sans-serif',
         textTransform: 'capitalize',
-    }
+    },
 })

@@ -1,4 +1,3 @@
-import {useContext} from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment';
 
@@ -10,7 +9,7 @@ import { processFilters } from '../../helpers/filterHelpers';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Context 
-import { RoutineContext } from '../../context/RoutineContext';
+import useRoutineContext from '../../context/useRoutineContext';
 
 // Components
 import ActivityEventCard from '../Events/ActivityCard';
@@ -26,7 +25,7 @@ const eventCards = {
 
 const WeekView = ({eventType}) => {
     
-    const { start, workweek, eventsData, hasFilters, filterFunction } = useContext(RoutineContext)
+    const { start, workweek, eventsData, hasFilters, filterFunction } = useRoutineContext();
     const classes = useStyles({days: workweek ? 5 : 7});
 
     const weekDays = getWeekRange(start, 'YYYY-MM-DD', workweek);
@@ -98,7 +97,6 @@ const DayBody = (props) => {
 
     const EventCard = eventCards[type] || eventCards.default;
 
-    console.log('EventCard >>', EventCard)
     return (
     <div className={classes.dayBody}>
         {events

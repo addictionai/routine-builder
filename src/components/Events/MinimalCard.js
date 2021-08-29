@@ -10,44 +10,51 @@ import MemberCard from '../Member/MemberCard'
 // Data
 import { userData } from '../../config';
 
-const EventCard = ({
+const MinimalEventCard = ({
     _id, 
-    memberId, 
+    invitedMembers = [],
     timeStart,
 }) => {
 
     const classes = useStyles();
     
-    const member = userData.members.find(m => m._id === memberId);
-
-    const memberCardProps = {
-        firstName: member?.firstName,
-        lastName: member?.lastName,
-        photo: member?.photo,
-        size: 'medium',
-        showName: true,
-        rtl: true,
-    }
-
     return (
         <div className={classes.event}>
             <div className={classes.eventTime}>
                 <div className={classes.time}>{moment(timeStart).format('LT')}</div>
             </div>
             <div className={classes.memberCard}>
-                <MemberCard {...memberCardProps} />
+            {invitedMembers?.map(memberId => {
+
+                const member = userData.members.find(m => m._id === memberId);
+
+                const hasMembersArray = !!invitedMembers && Array.isArray(invitedMembers);
+                if (!hasMembersArray) return null;
+
+                const memberCardProps = {
+                    firstName: member?.firstName,
+                    lastName: member?.lastName,
+                    photo: member?.photo,
+                    size: 'medium',
+                    showName: true,
+                    rtl: true,
+                }
+
+                return <MemberCard key={member?._id} {...memberCardProps} />
+
+            })}
             </div>
         </div>
     )
 }
 
-EventCard.propTypes = {
+MinimalEventCard.propTypes = {
     _id: PropTypes.string, 
-    memberId: PropTypes.string, 
-    timeStart: PropTypes.string, 
+    invitedMembers: PropTypes.arrayOf(PropTypes.string), 
+    timeStart: PropTypes.string,
 }
 
-export default EventCard
+export default MinimalEventCard
 
 const useStyles = makeStyles({
     event: {

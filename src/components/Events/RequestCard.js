@@ -75,7 +75,7 @@ const AssignedToStaff = ({staff}) => {
 EventCard.propTypes = {
     _id: PropTypes.string, 
     status: PropTypes.string, 
-    memberId: PropTypes.string, 
+    memberId: PropTypes.string,
     staffId: PropTypes.string,
     destinationType: PropTypes.string,
     destination: PropTypes.string, 
