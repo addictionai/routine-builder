@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 // Data
 import useRoutineContext from '../../context/useRoutineContext';
-import { startDate, endDate } from '../../helpers/dateHelpers';
+import { startDate, endDate } from '../../utils/dateHelpers';
 
 // UI
 import { Button, IconButton } from '@material-ui/core';

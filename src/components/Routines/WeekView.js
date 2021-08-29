@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import moment from 'moment';
 
 // Util
-import { getWeekRange, getEventsForDate, sortEvents } from '../../helpers/dateHelpers';
-import { processFilters } from '../../helpers/filterHelpers';
+import { getWeekRange, getEventsForDate, sortEvents } from '../../utils/dateHelpers';
+import { processFilters } from '../../utils/filterHelpers';
 
 // UI
 import { makeStyles } from '@material-ui/core/styles';

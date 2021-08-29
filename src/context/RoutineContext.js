@@ -4,7 +4,7 @@ import moment from 'moment';
 
 // Setup
 import { config } from '../config';
-import useEffectAfterMount from '../hooks/useEffectAfterMount';
+import { useEffectAfterMount } from '../utils/hooks';
 
 export const RoutineContext = createContext({});
 
