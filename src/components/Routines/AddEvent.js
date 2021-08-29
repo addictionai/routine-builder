@@ -1,7 +1,5 @@
-import { useContext } from 'react'
-
 // Context
-import { RoutineContext } from '../../context/RoutineContext'
+import useRoutineContext from '../../context/useRoutineContext';
 
 // UI
 import { makeStyles } from '@material-ui/styles';
@@ -11,7 +9,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 const AddEvent = props => {
 
     const classes = useStyles();
-    const { handleAddEvent } = useContext(RoutineContext);
+    const { handleAddEvent } = useRoutineContext();
 
     return (
         <div className={classes.addEvent}>

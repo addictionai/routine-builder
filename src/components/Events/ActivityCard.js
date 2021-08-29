@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
 import moment from 'moment'
+
+// DnD
 import { Draggable } from 'react-beautiful-dnd';
 
 // UI
@@ -8,13 +10,10 @@ import { makeStyles} from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
 
 // Components
-import MemberAvatar from '../Member/MemberAvatar'
-
-// Data
-import { userData } from '../../config'
+import InvitedMembers from '../Member/MemberAvatarGroup'
 
 
-export const EventCardDraggableWrapper = ({ _id, index, ...props }) => {
+export const EventCardDraggable = ({ _id, index, ...props }) => {
     return <Draggable
             draggableId={_id}
             index={index}
@@ -24,8 +23,6 @@ export const EventCardDraggableWrapper = ({ _id, index, ...props }) => {
             <EventCard {...props} provided={provided} />
         )}
     </Draggable>
-    
-    
 }
 
 
@@ -33,7 +30,7 @@ const EventCard = ({
     _id, 
     status, 
     category,
-    memberId = 1,
+    invitedMembers = [],
     eventType,
     eventName, 
     timeStart,
@@ -45,48 +42,37 @@ const EventCard = ({
 
     const classes = useStyles();
 
-    const hasInvitedMembers = showAvatars;
-    const member = userData.members.find(m => m._id === memberId);
-
-    const avatarProps = {
-        size: avatarSize,
-        photo: member?.photo,
-        firstName: member?.lastName,
-        lastName: member?.lastName,
+    const invitedMemberProps = {
+        members: invitedMembers,
+        avatarSize,
     }
-
-    const InvitedMembers = () => {
-        return <MemberAvatar {...avatarProps} />
-    }
-
-    const eventDetailsClass = cn(classes.eventDetails, classes[category]);
 
     return (
-                <div 
-                className={classes.event} 
-                ref={provided?.innerRef} 
-                {...provided?.draggableProps} 
-                {...provided?.dragHandleProps}
-                >
-                    <div className={eventDetailsClass}>
-                        <div>
-                            <div className={classes.type}>{eventType}</div>
-                            <div>{eventName}</div>
-                        </div>
-                        {hasInvitedMembers && <InvitedMembers />}
-                    </div>
-                    <div className={classes.eventTime}>
-                        <div className={classes.time}>{moment(timeStart).format('LT')}</div>
-                        <Button className={classes.button} size="small">Change</Button>
-                    </div>
-                </div>        
+        <div 
+            ref={provided?.innerRef} 
+            {...provided?.draggableProps} 
+            {...provided?.dragHandleProps}    
+            className={classes.event}
+        >
+            <div className={cn(classes.eventDetails, classes[category])}>
+                <div>
+                    <div className={classes.type}>{eventType}</div>
+                    <div>{eventName}</div>
+                </div>
+                {showAvatars && <InvitedMembers {...invitedMemberProps} />}
+            </div>
+            <div className={classes.eventTime}>
+                <div className={classes.time}>{moment(timeStart).format('LT')}</div>
+                <Button className={classes.button} size="small">Change</Button>
+            </div>
+        </div>
     )
 }
 
 EventCard.propTypes = {
     _id: PropTypes.string, 
     status: PropTypes.string, 
-    memberId: PropTypes.string, 
+    invitedMembers: PropTypes.arrayOf(PropTypes.string),
     category: PropTypes.string,
     eventType: PropTypes.string,
     eventName: PropTypes.string, 
@@ -96,6 +82,7 @@ EventCard.propTypes = {
 }
 
 export default EventCard
+
 
 const useStyles = makeStyles({
     event: {
@@ -166,5 +153,5 @@ const useStyles = makeStyles({
         color: '#3269A5',
         fontFamily: 'sans-serif',
         textTransform: 'capitalize',
-    }
+    },
 })

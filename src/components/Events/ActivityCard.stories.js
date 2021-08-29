@@ -29,10 +29,22 @@ export const Primary = Template.bind({});
 Primary.args = {
     _id: "1", 
     status: "completed", 
-    memberId: "1", 
+    invitedMembers: ['1'],
     category: "personal",
     eventType: "Yoga",
     eventName: "Morning Yoga", 
     timeStart: "2021-08-20T08:30:00",
+    showAvatars: true,
+}
+
+export const Group = Template.bind({});
+Group.args = {
+    _id: "1", 
+    status: "completed", 
+    invitedMembers: ['1', '2'],
+    category: "recovery",
+    eventType: "12 Step",
+    eventName: "AA Meeting", 
+    timeStart: "2021-08-20T18:30:00",
     showAvatars: true,
 }

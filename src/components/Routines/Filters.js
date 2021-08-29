@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react';
+import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 // UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,11 +10,11 @@ import StaffButton from './FilterButtons';
 
 // Data
 import { userData } from '../../config';
-import { RoutineContext } from '../../context/RoutineContext';
+import useRoutineContext from '../../context/useRoutineContext';
 
 const Filters = ({setup}) => {
     
-    const { handleActivityFilter, handleStaffFilter } = useContext(RoutineContext);
+    const { handleActivityFilter, handleStaffFilter } = useRoutineContext();
     const classes = useStyles();
  
     const isRoutine = setup === 'routine';

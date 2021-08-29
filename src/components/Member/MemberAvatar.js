@@ -5,16 +5,6 @@ import cn from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
 
-const useStyles = makeStyles({
-    avatar: { 
-        borderRadius: '50%',
-        border: '2px solid rgba(255,255,255,0.6)',
-    },
-    small: { height: 30, width: 30 },
-    medium: { height: 40, width: 40 },
-    large: { height: 75, width: 75 },
-});
-
 const MemberAvatar = ({firstName, lastName, photo, size = 'medium'}) => {
 
     const classes = useStyles();
@@ -41,3 +31,12 @@ MemberAvatar.propTypes = {
 }
 
 export default MemberAvatar;
+
+const useStyles = makeStyles({
+    avatar: { 
+        border: '2px solid rgba(255,255,255,0.6)',
+    },
+    small: { height: 30, width: 30 },
+    medium: { height: 40, width: 40 },
+    large: { height: 75, width: 75 },
+});

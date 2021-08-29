@@ -1,8 +1,7 @@
-import {useContext} from 'react'
 import PropTypes from 'prop-types'
 
 // Data
-import { RoutineContext } from '../../context/RoutineContext';
+import useRoutineContext from '../../context/useRoutineContext';
 import { startDate, endDate } from '../../helpers/dateHelpers';
 
 // UI
@@ -14,7 +13,7 @@ import { FONT_COLOR_SECONDARY } from '../../styles/dark';
 
 const DateSelect = ({showDateRange, showNavScroll, showNavToday}) => {
     
-    const {start, handleDateShift, handleDateChange} = useContext(RoutineContext);
+    const {start, handleDateShift, handleDateChange} = useRoutineContext();
     const classes = useStyles();
 
     const displayStart = startDate(start).format('MMM DD');

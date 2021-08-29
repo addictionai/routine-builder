@@ -4,6 +4,7 @@ import moment from 'moment';
 
 // Setup
 import { config } from '../config';
+import useEffectAfterMount from '../hooks/useEffectAfterMount';
 
 export const RoutineContext = createContext({});
 
@@ -31,11 +32,11 @@ const RoutineContextProvider = ({children, value}) => {
       if(setup === 'routine') setSelectedStaff(null);
       if(setup === 'transport') setSelectedActivity(null);
 
-      //return () => console.log('[RoutineContext] Changing setup')
+      return () => console.log('[RoutineContext] Changing setup');
     }, [setup])
     
-    useEffect(() => {
-      console.log('[RoutineContext] eventData', eventsData);
+    useEffectAfterMount(() => {
+      console.log('[RoutineContext] eventData set to:', eventsData);
     }, [eventsData])
 
     // Filters
@@ -113,7 +114,7 @@ const RoutineContextProvider = ({children, value}) => {
     
     //console.log('[RoutineContext]', contextValues);
 
-    return(
+    return (
         <RoutineContext.Provider value={contextValues}>
             <Fragment>
               {children}
@@ -129,7 +130,7 @@ export default RoutineContextProvider
 const newEvent = {
   _id: nanoid(10),
   status: 'scheduled',
-  memberId: '1',
+  invitedMembers: ['1'],
   driverId: '2',
   category: 'recovery',
   eventType: 'Coach',

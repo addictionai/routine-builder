@@ -6,17 +6,17 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'completed',
-      memberId: '1',
+      invitedMembers: ['1'],
       hostId: '1',
       category: 'call',
       eventType: 'Call',
       eventName: '1-on-1 Session',
-      timeStart: '2021-08-17T08:30:00',
+      timeStart: '2021-08-17T18:30:00',
     },
     {
       _id: nanoid(10),
       status: 'scheduled',
-      memberId: '3',
+      invitedMembers: ['3'],
       hostId: '2',
       category: 'recovery',
       eventType: '12 Step',
@@ -26,7 +26,7 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'scheduled',
-      memberId: '1',
+      invitedMembers: ['1'],
       driverId: '2',
       category: 'personal',
       eventType: 'Spiritual',
@@ -36,7 +36,7 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'completed',
-      memberId: '3',
+      invitedMembers: ['3'],
       hostId: '1',
       category: 'personal',
       eventType: 'Yoga',
@@ -46,7 +46,7 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'completed',
-      memberId: '1',
+      invitedMembers: ['1'],
       hostId: '1',
       category: 'call',
       eventType: 'Call',
@@ -56,7 +56,7 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'scheduled',
-      memberId: '3',
+      invitedMembers: ['1', '2'],
       hostId: '2',
       category: 'recovery',
       eventType: '12 Step',
@@ -66,7 +66,7 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'scheduled',
-      memberId: '3',
+      invitedMembers: ['3'],
       hostId: '1',
       category: 'personal',
       eventType: 'Yoga',
@@ -76,7 +76,7 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'scheduled',
-      memberId: '1',
+      invitedMembers: ['1'],
       hostId: '2',
       category: 'personal',
       eventType: 'Gym',
@@ -86,7 +86,7 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'scheduled',
-      memberId: '3',
+      invitedMembers: ['3'],
       hostId: '2',
       category: 'recovery',
       eventType: '12 Step',
@@ -96,7 +96,7 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'scheduled',
-      memberId: '2',
+      invitedMembers: ['2'],
       hostId: '2',
       category: 'recovery',
       eventType: 'Therapy',
@@ -106,7 +106,7 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'scheduled',
-      memberId: '3',
+      invitedMembers: ['3'],
       hostId: '1',
       category: 'personal',
       eventType: 'Yoga',
@@ -116,7 +116,7 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'scheduled',
-      memberId: '3',
+      invitedMembers: ['3'],
       hostId: '2',
       category: 'recovery',
       eventType: '12 Step',
@@ -126,7 +126,7 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'scheduled',
-      memberId: '1',
+      invitedMembers: ['1'],
       driverId: '2',
       category: 'personal',
       eventType: 'Spiritual',
@@ -136,7 +136,7 @@ export const events = [
     {
       _id: nanoid(10),
       status: 'scheduled',
-      memberId: '1',
+      invitedMembers: ['1'],
       driverId: '2',
       category: 'personal',
       eventType: 'Spiritual',

@@ -1,4 +1,3 @@
-import {useContext} from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment';
 
@@ -9,17 +8,27 @@ import { processFilters } from '../../helpers/filterHelpers';
 // UI
 import { makeStyles } from '@material-ui/core/styles';
 
-// Components
-import {EventCardDraggableWrapper} from '../Events/ActivityCard';
-import RequestEventCard from '../Events/RequestCard';
-
 // Context 
-import { RoutineContext } from '../../context/RoutineContext';
+import useRoutineContext from '../../context/useRoutineContext';
+
+// Components
+import {EventCardDraggable} from '../Events/ActivityCard';
+import RequestEventCard from '../Events/RequestCard';
+import MinimalEventCard from '../Events/MinimalCard';
+
+// DnD
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
-const WeekView = ({eventType}) => {
+// Dynamic Components
+const eventCards = {
+    activity: EventCardDraggable,
+    request: RequestEventCard,
+    default: MinimalEventCard,
+}
 
-    const { start, workweek, eventsData, hasFilters, filterFunction, handleDragShift, handleModifyEvent } = useContext(RoutineContext)
+const WeekView = ({eventType}) => {
+    
+    const { start, workweek, eventsData, hasFilters, filterFunction, handleDragShift, handleModifyEvent  } = useRoutineContext();
     const classes = useStyles({days: workweek ? 5 : 7});
 
     const weekDays = getWeekRange(start, 'YYYY-MM-DD', workweek);
@@ -27,6 +36,10 @@ const WeekView = ({eventType}) => {
     const onDragEnd = (result) => {
        
         const { destination, source, draggableId } = result;
+
+        if (!destination) return;
+        if (destination.droppableId === source.droppableId) return;
+
         const dayShift = destination.droppableId - source.droppableId;
 
         const eventData = eventsData.find(event => event._id === draggableId);
@@ -34,14 +47,6 @@ const WeekView = ({eventType}) => {
         const modifiedEvent = {
             ...eventData,
             timeStart: newDate,
-        }
-
-        if (!destination) {
-          return;
-        }
-    
-        if (destination.droppableId === source.droppableId) {
-          return;
         }
 
         handleModifyEvent(modifiedEvent);
@@ -115,11 +120,7 @@ const DayBody = (props) => {
     const classes = useStyles();
     const {events, limit, type, id} = props;
 
-    const EventCard = (props) => {
-        if(type === 'request') return <RequestEventCard {...props} />
-        if(type === 'activity') return <EventCardDraggableWrapper {...props} id={id} />
-        return null;
-    }
+    const EventCard = eventCards[type] || eventCards.default;
 
     const droppableId = id.toString();
 
@@ -127,13 +128,13 @@ const DayBody = (props) => {
         <Droppable droppableId={droppableId}>
         {(provided) => (
             <div 
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            className={classes.dayBody}
-            >
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                className={classes.dayBody}
+                >
                 {events
-                .filter((_,index) => index < limit)
-                .map((event, index) => <EventCard key={`${event._id}_${index}`} {...event} index={index} />)
+                    .filter((_,index) => index < limit)
+                    .map((event, index) => <EventCard key={`${event._id}_${index}`} index={index} type={type} {...event} />)
                 }
                 {provided.placeholder}
             </div>
@@ -143,6 +144,7 @@ const DayBody = (props) => {
     
     )    
 }
+
 
 // Styles
 const useStyles = makeStyles({

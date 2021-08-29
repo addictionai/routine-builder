@@ -1,7 +1,7 @@
-import { useContext } from 'react';
 import PropTypes from 'prop-types'
 
-import { RoutineContext } from '../../context/RoutineContext';
+// Data
+import useRoutineContext from '../../context/useRoutineContext';
 
 // UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,7 +12,7 @@ import MemberAvatar from '../Member/MemberAvatar';
 
 const StaffButton = ({staff}) => {
 
-    const { handleStaffFilter } = useContext(RoutineContext);
+    const { handleStaffFilter } = useRoutineContext();
     const classes = useStyles();
 
     return (
