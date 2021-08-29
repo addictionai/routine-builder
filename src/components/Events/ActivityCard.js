@@ -19,8 +19,8 @@ export const EventCardDraggable = ({ _id, index, ...props }) => {
             index={index}
             key={_id}
         >
-        {(provided) => (
-            <EventCard {...props} provided={provided} />
+        {(provided, snapshot) => (
+            <EventCard {...props} isDragging={snapshot.isDragging} provided={provided} />
         )}
     </Draggable>
 }
@@ -37,7 +37,9 @@ const EventCard = ({
     showAvatars = true,
     avatarSize = "small",
     index,
-    provided
+    provided,
+    isDragging,
+    style,
 }) => {
 
     const classes = useStyles();
@@ -54,7 +56,10 @@ const EventCard = ({
             {...provided?.dragHandleProps}    
             className={classes.event}
         >
-            <div className={cn(classes.eventDetails, classes[category])}>
+            <div 
+                className={cn(classes.eventDetails, classes[category])}
+                style={{opacity: isDragging ? 0.8 : 1}}
+            >
                 <div>
                     <div className={classes.type}>{eventType}</div>
                     <div>{eventName}</div>
