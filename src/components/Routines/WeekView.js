@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment';
 
@@ -28,7 +29,7 @@ const WeekView = ({eventType}) => {
     const { start, workweek, eventsData, hasFilters, filterFunction } = useRoutineContext();
     const classes = useStyles({days: workweek ? 5 : 7});
 
-    const weekDays = getWeekRange(start, 'YYYY-MM-DD', workweek);
+    const weekDays = useMemo(() => getWeekRange(start, 'YYYY-MM-DD', workweek), [start, workweek]);
 
     return (
     <div className={classes.routineContainer}>
