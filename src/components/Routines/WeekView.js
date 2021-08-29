@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment';
 
 // Util
-import { getWeekRange, getEventsForDate, sortEvents } from '../../helpers/dateHelpers';
+import { getWeekRange, getEventsForDate, sortEvents } from '../../utils/dateHelpers';
 import { processFilters } from '../../helpers/filterHelpers';
 
 // UI

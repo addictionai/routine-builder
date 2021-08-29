@@ -4,7 +4,7 @@ import Routines from './Routines'
 // Data
 import { events as routineEvents } from '../../data/dataRoutines';
 import { events as transportEvents } from '../../data/dataTransport';
-import { startDate } from './../../helpers/dateHelpers';
+import { startDate } from '../../utils/dateHelpers';
 
 const start = '2021-08-23';
  
