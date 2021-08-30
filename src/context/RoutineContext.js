@@ -60,7 +60,7 @@ const RoutineContextProvider = ({children, value}) => {
       setEventsData(config?.[type].data);
     }
     const handleAddEvent = (event) => {
-      const newEventData = isRoutine ? newEvent : isTransport ? newRequest : {};
+      const newEventData = isRoutine ?  {...newEvent, _id: nanoid(10)} : isTransport ? {...newRequest, _id: nanoid(10)} : {};
       setEventsData(prevData => [...prevData, newEventData]);
       console.log('RoutineContext] event added:', newEventData)
     }
@@ -117,7 +117,6 @@ export default RoutineContextProvider
 
 // Temporary: New Event Data
 const newEvent = {
-  _id: nanoid(10),
   status: 'scheduled',
   invitedMembers: ['1'],
   driverId: '2',
@@ -128,7 +127,6 @@ const newEvent = {
 }
 
 const newRequest = {
-  _id: nanoid(10),
   status: 'pending',
   memberId: '1',
   staffId: '2',
