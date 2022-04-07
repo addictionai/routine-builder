@@ -12,6 +12,7 @@ export const events = [
       eventType: 'Call',
       eventName: '1-on-1 Session',
       timeStart: '2021-08-24T18:30:00',
+      timeEnd: '2021-08-24T19:30:00',
     },
     {
       _id: nanoid(10),
@@ -22,6 +23,7 @@ export const events = [
       eventType: '12 Step',
       eventName: 'AA Meeting',
       timeStart: '2021-08-25T13:30:00',
+      timeEnd: '2021-08-25T14:30:00',
     },
     {
       _id: nanoid(10),
@@ -32,6 +34,7 @@ export const events = [
       eventType: 'Spiritual',
       eventName: 'Prayar Group',
       timeStart: '2021-08-28T00:00:00',
+      timeEnd: '2021-08-28T02:00:00',
     },
     {
       _id: nanoid(10),
@@ -91,7 +94,7 @@ export const events = [
       category: 'recovery',
       eventType: '12 Step',
       eventName: 'AA Meeting',
-      timeStart: '2021-08-31T10:30:00',
+      timeStart: '2022-03-31T10:30:00',
     },
     {
       _id: nanoid(10),
